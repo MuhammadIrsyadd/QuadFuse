@@ -2,8 +2,6 @@
 
 > **QuadFuse** adalah game puzzle angka satu halaman (*single-page web application*) berbasis kisi 4x4 yang terinspirasi dari 2048 dengan estetika retro-futuristik **Cyber Synth Arcade** (`#0F131D` obsidian base, `#00F5FF` electric cyan, `#D0BCFF` vivid violet).
 
-![QuadFuse Preview](design%20quadfuse/quadfuse_cyber_arcade_game_board/screen.png)
-
 ---
 
 ## ⚡ Fitur Utama
