@@ -1,0 +1,19 @@
+{
+  "name": "quadfuse-2048",
+  "version": "1.0.0",
+  "description": "QuadFuse — Cyber Synth Arcade 2048 Game",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve .",
+    "dev": "npx serve ."
+  },
+  "keywords": [
+    "2048",
+    "game",
+    "arcade",
+    "cyberpunk",
+    "puzzle"
+  ],
+  "author": "",
+  "license": "MIT"
+}

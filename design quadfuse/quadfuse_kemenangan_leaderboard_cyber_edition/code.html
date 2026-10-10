@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&amp;family=Space+Grotesk:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          "surface-container-low": "#171b26",
+          "inverse-on-surface": "#2c303b",
+          "secondary-fixed": "#e9ddff",
+          "on-tertiary-container": "#895600",
+          "surface-variant": "#313540",
+          "surface-container-lowest": "#0a0e18",
+          "on-primary-container": "#006c71",
+          "primary": "#e9feff",
+          "on-surface-variant": "#b9caca",
+          "surface-bright": "#353944",
+          "inverse-surface": "#dfe2f1",
+          "surface-tint": "#00dce5",
+          "on-surface": "#dfe2f1",
+          "error": "#ffb4ab",
+          "primary-container": "#00f5ff",
+          "on-primary-fixed-variant": "#004f53",
+          "on-tertiary-fixed-variant": "#653e00",
+          "surface": "#0f131d",
+          "tertiary": "#fff9f6",
+          "on-tertiary": "#472a00",
+          "primary-fixed": "#63f7ff",
+          "surface-container-highest": "#313540",
+          "on-tertiary-fixed": "#2a1700",
+          "on-error-container": "#ffdad6",
+          "tertiary-container": "#ffd7aa",
+          "inverse-primary": "#00696e",
+          "surface-dim": "#0f131d",
+          "secondary-fixed-dim": "#d0bcff",
+          "background": "#0f131d",
+          "surface-container-high": "#262a35",
+          "on-secondary-fixed": "#23005c",
+          "primary-fixed-dim": "#00dce5",
+          "outline": "#849495",
+          "on-secondary-fixed-variant": "#5516be",
+          "on-secondary-container": "#c4abff",
+          "on-primary": "#003739",
+          "tertiary-fixed-dim": "#ffb95f",
+          "error-container": "#93000a",
+          "secondary-container": "#571bc1",
+          "outline-variant": "#3a494a",
+          "secondary": "#d0bcff",
+          "on-secondary": "#3c0091",
+          "surface-container": "#1c1f2a",
+          "on-background": "#dfe2f1",
+          "tertiary-fixed": "#ffddb8",
+          "on-primary-fixed": "#002021",
+          "on-error": "#690005"
+        },
+        borderRadius: {
+          "DEFAULT": "0.25rem",
+          "lg": "0.5rem",
+          "xl": "0.75rem",
+          "2xl": "1rem",
+          "full": "9999px"
+        },
+        fontFamily: {
+          sans: ["Space Grotesk", "sans-serif"],
+          mono: ["JetBrains Mono", "monospace"],
+          headline: ["Space Grotesk", "sans-serif"]
+        }
+      }
+    }
+  }
+</script></head><body class="bg-surface font-sans text-on-surface antialiased min-h-screen flex flex-col justify-between selection:bg-primary-container selection:text-on-primary-fixed relative overflow-x-hidden"><header class="fixed top-0 w-full z-50 bg-surface-container-lowest/80 backdrop-blur-xl border-b border-outline-variant/30"><div class="h-20 max-w-7xl mx-auto px-4 md:px-8 flex items-center justify-between gap-4"><div class="flex items-center gap-3"><div class="relative flex items-center justify-center w-9 h-9 rounded-xl bg-gradient-to-br from-primary-container to-secondary-container p-0.5 shadow-[0_0_15px_rgba(0,245,255,0.4)]"><div class="w-full h-full bg-surface-container-lowest rounded-[10px] flex items-center justify-center"><span class="font-mono text-primary-container font-bold text-sm tracking-tighter">2K</span></div></div><div class="flex flex-col"><div class="flex items-center gap-2"><span class="font-headline text-2xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-primary via-primary-container to-secondary">QuadFuse</span><span class="px-1.5 py-0.5 rounded text-[10px] font-mono uppercase bg-primary-container/10 border border-primary-container/30 text-primary-container">SYNTH ARCADE</span></div><span class="text-xs font-mono text-on-surface-variant hidden sm:inline-block">Join the numbers &amp; get to the 2048 tile!</span></div></div><div class="flex items-center gap-3 sm:gap-6"><nav class="flex items-center gap-1 sm:gap-2"><a class="px-3 py-1.5 rounded-lg text-sm font-medium text-on-surface-variant hover:text-primary-container hover:bg-surface-container transition-all" data-path="game" href="#">Arena</a><a class="px-3 py-1.5 rounded-lg text-sm font-medium text-primary-container bg-primary-container/10 border border-primary-container/20 shadow-[0_0_10px_rgba(0,245,255,0.15)]" data-path="leaderboard" href="#">High Scores</a><a class="px-3 py-1.5 rounded-lg text-sm font-medium text-on-surface-variant hover:text-primary-container hover:bg-surface-container transition-all" data-path="tutorial" href="#">How to Play</a></nav><div class="w-9 h-9 rounded-xl bg-surface-container border border-outline-variant/40 flex items-center justify-center hover:border-primary-container/50 transition-colors shadow-sm"><span class="material-symbols-outlined text-primary-fixed-dim text-[20px]">person</span></div></div></div></header><main class="w-full pt-24 pb-16 bg-surface flex-1 flex flex-col items-center justify-center relative"><div class="flex flex-col w-full relative"><div class="relative w-full max-w-6xl mx-auto px-4 md:px-8 py-4 flex flex-col items-center">
+<!-- Ambient Neon Cyber Glows -->
+<div class="absolute top-10 left-1/2 -translate-x-1/2 w-[550px] h-[360px] bg-primary-container/15 rounded-full blur-[120px] pointer-events-none -z-10"></div>
+<div class="absolute top-28 left-1/4 w-[380px] h-[380px] bg-secondary-container/25 rounded-full blur-[100px] pointer-events-none -z-10"></div>
+<div class="absolute top-40 right-1/4 w-[340px] h-[340px] bg-tertiary-fixed-dim/15 rounded-full blur-[110px] pointer-events-none -z-10"></div>
+<!-- Live Grid Behind Modal (Cyber Synth 4x4 Arena Simulation) -->
+<div class="w-full max-w-[460px] mb-8 select-none opacity-25 blur-[3px] transition-all duration-700 pointer-events-none scale-95" id="underlying-board">
+<div class="flex items-center justify-between mb-3 px-1">
+<div>
+<span class="font-mono text-xs uppercase tracking-wider text-primary-container/80 font-bold">Arena Papan</span>
+<div class="font-headline text-xl text-primary font-bold tracking-wide">Sesi Berjalan</div>
+</div>
+<div class="flex gap-2 font-mono">
+<div class="bg-surface-container-high/80 border border-outline-variant/40 px-3 py-1.5 rounded-xl text-center min-w-[76px]">
+<span class="block text-[11px] text-on-surface-variant uppercase font-bold tracking-wider">Skor</span>
+<span class="text-base text-primary font-bold">20480</span>
+</div>
+<div class="bg-surface-container-high/80 border border-outline-variant/40 px-3 py-1.5 rounded-xl text-center min-w-[76px]">
+<span class="block text-[11px] text-on-surface-variant uppercase font-bold tracking-wider">Terbaik</span>
+<span class="text-base text-primary-fixed font-bold">24600</span>
+</div>
+</div>
+</div>
+<!-- Cyber Neon Grid -->
+<div class="w-full aspect-square bg-surface-container-lowest/90 p-3 rounded-2xl border border-outline-variant/40 shadow-[0_0_30px_rgba(0,0,0,0.6)] grid grid-cols-4 grid-rows-4 gap-2.5">
+<div class="bg-surface-container-high rounded-xl flex items-center justify-center font-bold text-on-surface-variant text-lg">2</div>
+<div class="bg-surface-container-highest rounded-xl flex items-center justify-center font-bold text-primary text-lg">8</div>
+<div class="bg-surface-container-highest rounded-xl flex items-center justify-center font-bold text-primary text-lg">16</div>
+<div class="bg-secondary-container/40 border border-secondary/30 rounded-xl flex items-center justify-center font-bold text-secondary text-lg">64</div>
+<div class="bg-surface-container-high rounded-xl flex items-center justify-center font-bold text-on-surface-variant text-lg">4</div>
+<div class="bg-secondary-container/50 border border-secondary/40 rounded-xl flex items-center justify-center font-bold text-secondary text-base">128</div>
+<div class="bg-secondary-container/80 border border-secondary/60 rounded-xl flex items-center justify-center font-bold text-secondary-fixed text-base">256</div>
+<div class="bg-tertiary-fixed-dim/30 border border-tertiary-fixed-dim/50 rounded-xl flex items-center justify-center font-bold text-tertiary-fixed text-base">512</div>
+<div class="bg-surface-container-low/60 rounded-xl border border-outline-variant/20"></div>
+<div class="bg-secondary-container/40 rounded-xl flex items-center justify-center font-bold text-secondary text-lg">32</div>
+<div class="bg-tertiary-fixed-dim/40 border border-tertiary-fixed-dim/70 rounded-xl flex items-center justify-center font-bold text-tertiary-fixed text-base">1024</div>
+<div class="bg-primary-container text-surface-container-lowest font-bold rounded-xl flex items-center justify-center text-base shadow-[0_0_20px_rgba(0,245,255,0.7)] animate-pulse">2048</div>
+<div class="bg-surface-container-low/60 rounded-xl border border-outline-variant/20"></div>
+<div class="bg-surface-container-high rounded-xl flex items-center justify-center font-bold text-on-surface-variant text-lg">4</div>
+<div class="bg-surface-container-high rounded-xl flex items-center justify-center font-bold text-on-surface-variant text-lg">2</div>
+<div class="bg-surface-container-low/60 rounded-xl border border-outline-variant/20"></div>
+</div>
+</div>
+<!-- Celebration Screen Card Overlayer -->
+<div class="w-full max-w-4xl relative -mt-32 sm:-mt-44 z-20" id="victory-card-container">
+<!-- Cyber Particles / Spark Stream Canvas -->
+<div class="absolute inset-0 pointer-events-none overflow-hidden -z-10 rounded-2xl">
+<svg class="w-full h-full opacity-70" fill="none" viewbox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+<circle class="animate-ping" cx="130" cy="90" fill="#00f5ff" r="4" style="animation-duration: 3s;"></circle>
+<circle class="animate-pulse" cx="710" cy="80" fill="#ffd7aa" r="5"></circle>
+<polygon fill="#d0bcff" points="190,45 198,62 182,62"></polygon>
+<rect fill="#00dce5" height="8" transform="rotate(45 640 120)" width="8" x="640" y="120"></rect>
+<rect fill="#d0bcff" height="6" transform="rotate(25 90 220)" width="6" x="90" y="220"></rect>
+<circle cx="730" cy="280" fill="#63f7ff" r="4"></circle>
+<polygon fill="#ffb95f" points="390,20 398,34 382,34"></polygon>
+<circle class="animate-bounce" cx="290" cy="35" fill="#00f5ff" r="3.5" style="animation-duration: 2.2s;"></circle>
+</svg>
+</div>
+<!-- Main Celebration Pane -->
+<div class="bg-surface-container-lowest/90 backdrop-blur-2xl rounded-2xl border border-primary-container/30 shadow-[0_0_50px_rgba(0,245,255,0.18),0_25px_60px_-15px_rgba(0,0,0,0.85)] p-5 sm:p-8 flex flex-col gap-6 relative overflow-hidden">
+<!-- Top Hologram Horizon Line -->
+<div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-primary-container to-secondary"></div>
+<!-- Header Ribbon: Victory Title & Cyber Hologram Trophy Glow -->
+<div class="flex flex-col sm:flex-row items-center justify-between gap-6 text-center sm:text-left pb-2 border-b border-outline-variant/30">
+<div class="flex flex-col sm:flex-row items-center gap-5">
+<div class="relative shrink-0">
+<!-- Trophy Pod -->
+<div class="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-gradient-to-tr from-secondary-container via-surface-container-high to-primary-container p-[2px] shadow-[0_0_28px_rgba(0,245,255,0.45)] flex items-center justify-center group">
+<div class="w-full h-full bg-surface-container-lowest rounded-[14px] flex items-center justify-center relative overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-b from-primary-container/20 to-transparent"></div>
+<span class="material-symbols-outlined text-[44px] sm:text-[52px] text-tertiary-fixed-dim drop-shadow-[0_0_12px_rgba(255,185,95,0.7)]" style="font-variation-settings: 'FILL' 1;">emoji_events</span>
+</div>
+</div>
+<span class="absolute -bottom-2 -right-2 px-2 py-0.5 rounded-full bg-primary-container text-on-primary-fixed font-mono text-[11px] uppercase font-bold tracking-wider shadow-[0_0_12px_rgba(0,245,255,0.8)] border border-primary">2048!</span>
+</div>
+<div>
+<div class="flex items-center justify-center sm:justify-start gap-2 mb-1.5">
+<span class="w-2 h-2 rounded-full bg-primary-container animate-pulse shadow-[0_0_8px_#00f5ff]"></span>
+<span class="font-mono text-xs uppercase font-bold tracking-widest text-primary-fixed-dim">Prestasi Legendaris</span>
+</div>
+<h1 class="font-headline text-2xl sm:text-3xl text-primary font-bold tracking-tight drop-shadow-[0_2px_10px_rgba(233,254,255,0.2)]">
+                Luar Biasa! Kamu Mencapai 2048! 🎉
+              </h1>
+<p class="text-sm font-sans text-on-surface-variant max-w-xl mt-1 leading-relaxed">
+                Strategi brilian. Balok keramik bernomor telah menyatu membentuk mahkota ubin cyan. Kamu dapat terus bermain untuk melipatgandakan rekor!
+              </p>
+</div>
+</div>
+<!-- Quick High Tile Chip (Cyber Synth HUD Badge) -->
+<div class="flex flex-col items-center bg-surface-container-low/90 border border-primary-container/30 px-4 py-3 rounded-xl shrink-0 shadow-[0_0_16px_rgba(0,245,255,0.1)]">
+<span class="font-mono text-[11px] text-on-surface-variant font-bold uppercase tracking-wider">Ubin Tertinggi</span>
+<div class="mt-1 px-4 py-1.5 rounded-lg bg-gradient-to-r from-primary-container to-primary-fixed-dim text-on-primary font-mono text-xl font-bold tracking-tight shadow-[0_0_20px_rgba(0,245,255,0.6)]">
+              2048
+            </div>
+</div>
+</div>
+<!-- Metric Grid Breakdown (Cyber HUD Cards) -->
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+<!-- Metric 1: Skor Akhir -->
+<div class="bg-surface-container-low/80 border border-outline-variant/30 hover:border-primary-container/50 rounded-xl p-4 flex flex-col justify-between transition-all group relative overflow-hidden">
+<div class="absolute top-0 right-0 w-16 h-16 bg-primary-container/5 rounded-full blur-xl pointer-events-none"></div>
+<div class="flex items-center justify-between text-on-surface-variant">
+<span class="font-mono text-[11px] uppercase tracking-wider font-bold">Skor Akhir</span>
+<span class="material-symbols-outlined text-[20px] text-tertiary-fixed-dim group-hover:scale-110 transition-transform">military_tech</span>
+</div>
+<div class="mt-2 font-mono text-2xl sm:text-3xl text-primary-container font-bold tracking-tight drop-shadow-[0_0_10px_rgba(0,245,255,0.4)]">
+              20,480
+            </div>
+<span class="font-mono text-xs text-primary-fixed-dim font-medium mt-1.5 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">add_circle</span> +2,048 bonus gabungan
+</span>
+</div>
+<!-- Metric 2: Langkah -->
+<div class="bg-surface-container-low/80 border border-outline-variant/30 hover:border-secondary/50 rounded-xl p-4 flex flex-col justify-between transition-all group relative overflow-hidden">
+<div class="absolute top-0 right-0 w-16 h-16 bg-secondary-container/10 rounded-full blur-xl pointer-events-none"></div>
+<div class="flex items-center justify-between text-on-surface-variant">
+<span class="font-mono text-[11px] uppercase tracking-wider font-bold">Langkah</span>
+<span class="material-symbols-outlined text-[20px] text-secondary group-hover:scale-110 transition-transform">swipe</span>
+</div>
+<div class="mt-2 font-mono text-2xl sm:text-3xl text-primary font-bold tracking-tight">
+              742
+            </div>
+<span class="font-mono text-xs text-on-surface-variant mt-1.5">Efisiensi 27.6 poin/geser</span>
+</div>
+<!-- Metric 3: Best Tile -->
+<div class="bg-surface-container-low/80 border border-primary-container/40 rounded-xl p-4 flex flex-col justify-between transition-all group relative overflow-hidden shadow-[0_0_16px_rgba(0,245,255,0.12)]">
+<div class="absolute top-0 right-0 w-20 h-20 bg-primary-container/15 rounded-full blur-xl pointer-events-none"></div>
+<div class="flex items-center justify-between text-on-surface-variant">
+<span class="font-mono text-[11px] uppercase tracking-wider font-bold text-primary-container">Best Tile</span>
+<span class="material-symbols-outlined text-[20px] text-primary-container group-hover:scale-110 transition-transform">diamond</span>
+</div>
+<div class="mt-2 flex items-baseline gap-2">
+<span class="font-mono text-2xl sm:text-3xl text-primary-container font-bold drop-shadow-[0_0_12px_rgba(0,245,255,0.5)]">2048</span>
+<span class="font-mono text-xs text-secondary-fixed bg-secondary-container/40 px-1.5 py-0.5 rounded border border-secondary/30">Level 11</span>
+</div>
+<span class="font-mono text-xs text-primary-fixed-dim mt-1.5">Ubin Super Tercapai</span>
+</div>
+<!-- Metric 4: Waktu Tempuh -->
+<div class="bg-surface-container-low/80 border border-outline-variant/30 hover:border-outline/60 rounded-xl p-4 flex flex-col justify-between transition-all group relative overflow-hidden">
+<div class="flex items-center justify-between text-on-surface-variant">
+<span class="font-mono text-[11px] uppercase tracking-wider font-bold">Waktu Tempuh</span>
+<span class="material-symbols-outlined text-[20px] text-on-surface-variant group-hover:scale-110 transition-transform">timer</span>
+</div>
+<div class="mt-2 font-mono text-2xl sm:text-3xl text-primary font-bold tracking-tight">
+              14m 20s
+            </div>
+<span class="font-mono text-xs text-on-surface-variant mt-1.5">Rata-rata 1.15 dtk/geser</span>
+</div>
+</div>
+<!-- Local Leaderboard Section (Futuristic Cyber Data Table) -->
+<div class="bg-surface-container-low/90 border border-outline-variant/30 rounded-2xl p-4 sm:p-6 flex flex-col gap-4">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+<div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-container text-[22px]">leaderboard</span>
+<h2 class="font-headline text-lg sm:text-xl text-primary font-bold tracking-wide">Papan Skor Tertinggi Lokal</h2>
+</div>
+<p class="font-mono text-xs text-on-surface-variant mt-0.5">
+                Tersimpan di penyimpanan lokal browser (<code class="bg-surface-container-highest px-1.5 py-0.5 rounded text-primary-container">localStorage</code>).
+              </p>
+</div>
+<div class="flex items-center gap-2 self-start sm:self-auto">
+<button class="text-on-surface-variant hover:text-error text-xs font-mono px-2 py-1.5 rounded-lg border border-outline-variant/30 hover:border-error/50 transition-colors flex items-center gap-1.5" id="reset-leaderboard-btn" type="button">
+<span class="material-symbols-outlined text-[16px]">restart_alt</span>
+<span>Reset Riwayat</span>
+</button>
+</div>
+</div>
+<!-- Score Table -->
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse" id="leaderboard-table">
+<thead>
+<tr class="text-on-surface-variant font-mono text-[11px] uppercase tracking-wider border-b border-outline-variant/30">
+<th class="py-2.5 px-3 font-bold w-16">Rank</th>
+<th class="py-2.5 px-3 font-bold">Pemain / Catatan</th>
+<th class="py-2.5 px-3 font-bold text-center">Ubin Puncak</th>
+<th class="py-2.5 px-3 font-bold text-right">Langkah</th>
+<th class="py-2.5 px-3 font-bold text-right">Waktu</th>
+<th class="py-2.5 px-3 font-bold text-right">Skor Total</th>
+</tr>
+</thead>
+<tbody class="text-on-surface font-sans text-sm divide-y divide-outline-variant/20" id="leaderboard-body">
+<!-- Initial / Fallback Rows -->
+<tr class="bg-primary-container/10 border-l-4 border-l-primary-container border-y border-primary-container/30 shadow-[0_0_15px_rgba(0,245,255,0.08)]">
+<td class="py-3 px-3">
+<span class="w-7 h-7 rounded-lg bg-gradient-to-br from-primary-container to-secondary-container text-on-primary-fixed font-mono text-xs font-bold flex items-center justify-center shadow-[0_0_10px_rgba(0,245,255,0.6)]">#1</span>
+</td>
+<td class="py-3 px-3">
+<div class="flex flex-col">
+<span class="font-headline text-sm text-primary font-bold flex items-center gap-2">
+                        Sesi Kamu Hari Ini
+                        <span class="px-1.5 py-0.5 rounded bg-primary-container/20 border border-primary-container/40 text-primary-container font-mono text-[10px] uppercase font-bold">Baru</span>
+</span>
+<span class="text-on-surface-variant font-mono text-xs">Baru saja diselesaikan</span>
+</div>
+</td>
+<td class="py-3 px-3 text-center">
+<span class="inline-block px-2.5 py-1 rounded-md bg-primary-container text-on-primary-fixed font-mono text-xs font-bold shadow-[0_0_10px_rgba(0,245,255,0.6)]">2048</span>
+</td>
+<td class="py-3 px-3 text-right font-mono font-medium">742</td>
+<td class="py-3 px-3 text-right text-on-surface-variant font-mono text-xs">14m 20s</td>
+<td class="py-3 px-3 text-right font-mono text-lg text-primary-container font-bold drop-shadow-[0_0_6px_rgba(0,245,255,0.4)]">20,480</td>
+</tr>
+<tr class="hover:bg-surface-container/60 transition-colors">
+<td class="py-3 px-3">
+<span class="w-7 h-7 rounded-lg bg-surface-container-high border border-outline-variant/40 text-on-surface font-mono text-xs font-bold flex items-center justify-center">#2</span>
+</td>
+<td class="py-3 px-3">
+<div class="flex flex-col">
+<span class="font-headline text-sm font-semibold text-on-surface">Pilar Taktis</span>
+<span class="text-on-surface-variant font-mono text-xs">Kemarin • 21:14 WIB</span>
+</div>
+</td>
+<td class="py-3 px-3 text-center">
+<span class="inline-block px-2.5 py-1 rounded-md bg-surface-container-highest border border-tertiary-fixed-dim/40 text-tertiary-fixed font-mono text-xs font-bold">1024</span>
+</td>
+<td class="py-3 px-3 text-right font-mono font-medium">610</td>
+<td class="py-3 px-3 text-right text-on-surface-variant font-mono text-xs">11m 45s</td>
+<td class="py-3 px-3 text-right font-mono text-base text-primary font-bold">16,380</td>
+</tr>
+<tr class="hover:bg-surface-container/60 transition-colors">
+<td class="py-3 px-3">
+<span class="w-7 h-7 rounded-lg bg-surface-container-high border border-outline-variant/40 text-on-surface font-mono text-xs font-bold flex items-center justify-center">#3</span>
+</td>
+<td class="py-3 px-3">
+<div class="flex flex-col">
+<span class="font-headline text-sm font-semibold text-on-surface">Penjaga Sudut</span>
+<span class="text-on-surface-variant font-mono text-xs">3 hari lalu</span>
+</div>
+</td>
+<td class="py-3 px-3 text-center">
+<span class="inline-block px-2.5 py-1 rounded-md bg-surface-container-highest border border-tertiary-fixed-dim/40 text-tertiary-fixed font-mono text-xs font-bold">1024</span>
+</td>
+<td class="py-3 px-3 text-right font-mono font-medium">580</td>
+<td class="py-3 px-3 text-right text-on-surface-variant font-mono text-xs">09m 10s</td>
+<td class="py-3 px-3 text-right font-mono text-base text-primary font-bold">14,920</td>
+</tr>
+<tr class="hover:bg-surface-container/60 transition-colors">
+<td class="py-3 px-3">
+<span class="w-7 h-7 rounded-lg bg-surface-container-high border border-outline-variant/40 text-on-surface font-mono text-xs font-bold flex items-center justify-center">#4</span>
+</td>
+<td class="py-3 px-3">
+<div class="flex flex-col">
+<span class="font-headline text-sm font-semibold text-on-surface">Langkah Cepat</span>
+<span class="text-on-surface-variant font-mono text-xs">12 Okt 2025</span>
+</div>
+</td>
+<td class="py-3 px-3 text-center">
+<span class="inline-block px-2.5 py-1 rounded-md bg-surface-container-highest border border-secondary/40 text-secondary-fixed font-mono text-xs font-bold">512</span>
+</td>
+<td class="py-3 px-3 text-right font-mono font-medium">422</td>
+<td class="py-3 px-3 text-right text-on-surface-variant font-mono text-xs">07m 02s</td>
+<td class="py-3 px-3 text-right font-mono text-base text-on-surface font-bold">9,410</td>
+</tr>
+<tr class="hover:bg-surface-container/60 transition-colors">
+<td class="py-3 px-3">
+<span class="w-7 h-7 rounded-lg bg-surface-container-high border border-outline-variant/40 text-on-surface font-mono text-xs font-bold flex items-center justify-center">#5</span>
+</td>
+<td class="py-3 px-3">
+<div class="flex flex-col">
+<span class="font-headline text-sm font-semibold text-on-surface">Pemanasan Awal</span>
+<span class="text-on-surface-variant font-mono text-xs">10 Okt 2025</span>
+</div>
+</td>
+<td class="py-3 px-3 text-center">
+<span class="inline-block px-2.5 py-1 rounded-md bg-surface-container-highest border border-secondary/40 text-secondary-fixed font-mono text-xs font-bold">512</span>
+</td>
+<td class="py-3 px-3 text-right font-mono font-medium">390</td>
+<td class="py-3 px-3 text-right text-on-surface-variant font-mono text-xs">06m 30s</td>
+<td class="py-3 px-3 text-right font-mono text-base text-on-surface font-bold">8,120</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Action Command Buttons (Cyber Synth Arcade High-Grade Action Bar) -->
+<div class="flex flex-col sm:flex-row items-center justify-between gap-3 pt-2">
+<div class="flex flex-wrap items-center gap-3 w-full sm:w-auto">
+<!-- Lanjut Main Button (Keep Going target 4096+) -->
+<button class="flex-1 sm:flex-initial flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-primary-container to-primary-fixed text-on-primary-fixed font-headline font-bold text-sm tracking-wide shadow-[0_0_20px_rgba(0,245,255,0.4)] hover:shadow-[0_0_28px_rgba(0,245,255,0.7)] hover:brightness-110 active:scale-[0.98] transition-all border border-primary" id="btn-keep-going" type="button">
+<span class="material-symbols-outlined text-[20px]">fast_forward</span>
+<span>Lanjut Main (Target 4096+)</span>
+</button>
+<!-- Main Game Baru (New Game) -->
+<button class="flex-1 sm:flex-initial flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-surface-container-high hover:bg-surface-variant text-primary border border-outline-variant/50 hover:border-primary-container/40 font-headline font-bold text-sm tracking-wide active:scale-[0.98] transition-all" id="btn-new-game" type="button">
+<span class="material-symbols-outlined text-[20px] text-primary-container">refresh</span>
+<span>Main Game Baru</span>
+</button>
+</div>
+<!-- Bagikan Skor (Share) -->
+<div class="w-full sm:w-auto flex items-center justify-end">
+<button class="w-full sm:w-auto flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-secondary-container/40 hover:bg-secondary-container/70 border border-secondary/40 text-secondary-fixed font-headline font-semibold text-sm tracking-wide shadow-[0_0_15px_rgba(208,188,255,0.15)] active:scale-[0.98] transition-all" id="btn-share-score" type="button">
+<span class="material-symbols-outlined text-[20px] text-secondary">share</span>
+<span>Bagikan Skor</span>
+</button>
+</div>
+</div>
+<!-- Notification Toast -->
+<div class="hidden items-center justify-center gap-2.5 p-3.5 bg-surface-container-highest border border-primary-container/50 text-primary rounded-xl text-sm font-mono shadow-[0_0_20px_rgba(0,245,255,0.3)] transition-all duration-300" id="share-toast">
+<span class="material-symbols-outlined text-primary-container text-[20px]">check_circle</span>
+<span>Tautan skor dan ringkasan berhasil disalin ke papan klip!</span>
+</div>
+</div>
+</div>
+</div>
+<script>
+    (function initVictoryScreen() {
+      const STORAGE_KEY = 'quadfuse_local_leaderboard';
+      const currentRun = {
+        name: 'Sesi Kamu Hari Ini',
+        date: 'Baru saja diselesaikan',
+        bestTile: 2048,
+        moves: 742,
+        time: '14m 20s',
+        score: 20480,
+        isLatest: true
+      };
+
+      const defaultBoard = [
+        currentRun,
+        { name: 'Pilar Taktis', date: 'Kemarin • 21:14 WIB', bestTile: 1024, moves: 610, time: '11m 45s', score: 16380 },
+        { name: 'Penjaga Sudut', date: '3 hari lalu', bestTile: 1024, moves: 580, time: '09m 10s', score: 14920 },
+        { name: 'Langkah Cepat', date: '12 Okt 2025', bestTile: 512, moves: 422, time: '07m 02s', score: 9410 },
+        { name: 'Pemanasan Awal', date: '10 Okt 2025', bestTile: 512, moves: 390, time: '06m 30s', score: 8120 }
+      ];
+
+      function getSavedLeaderboard() {
+        try {
+          const raw = localStorage.getItem(STORAGE_KEY);
+          if (!raw) {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(defaultBoard));
+            return defaultBoard;
+          }
+          return JSON.parse(raw);
+        } catch(e) {
+          return defaultBoard;
+        }
+      }
+
+      function renderLeaderboard() {
+        const list = getSavedLeaderboard();
+        const tbody = document.getElementById('leaderboard-body');
+        if (!tbody) return;
+
+        tbody.innerHTML = '';
+        list.slice(0, 5).forEach((entry, idx) => {
+          const isFirst = idx === 0;
+          const tr = document.createElement('tr');
+          tr.className = entry.isLatest 
+            ? 'bg-primary-container/10 border-l-4 border-l-primary-container border-y border-primary-container/30 shadow-[0_0_15px_rgba(0,245,255,0.08)]' 
+            : 'hover:bg-surface-container/60 transition-colors';
+
+          let rankBadge = isFirst
+            ? '<span class="w-7 h-7 rounded-lg bg-gradient-to-br from-primary-container to-secondary-container text-on-primary-fixed font-mono text-xs font-bold flex items-center justify-center shadow-[0_0_10px_rgba(0,245,255,0.6)]">#1</span>'
+            : `<span class="w-7 h-7 rounded-lg bg-surface-container-high border border-outline-variant/40 text-on-surface font-mono text-xs font-bold flex items-center justify-center">#${idx + 1}</span>`;
+
+          let tileBadge = '';
+          if (entry.bestTile >= 2048) {
+            tileBadge = `<span class="inline-block px-2.5 py-1 rounded-md bg-primary-container text-on-primary-fixed font-mono text-xs font-bold shadow-[0_0_10px_rgba(0,245,255,0.6)]">${entry.bestTile}</span>`;
+          } else if (entry.bestTile >= 1024) {
+            tileBadge = `<span class="inline-block px-2.5 py-1 rounded-md bg-surface-container-highest border border-tertiary-fixed-dim/40 text-tertiary-fixed font-mono text-xs font-bold">${entry.bestTile}</span>`;
+          } else {
+            tileBadge = `<span class="inline-block px-2.5 py-1 rounded-md bg-surface-container-highest border border-secondary/40 text-secondary-fixed font-mono text-xs font-bold">${entry.bestTile}</span>`;
+          }
+
+          const scoreColor = entry.isLatest ? 'text-primary-container font-bold drop-shadow-[0_0_6px_rgba(0,245,255,0.4)]' : 'text-primary font-bold';
+
+          tr.innerHTML = `
+            <td class="py-3 px-3">${rankBadge}</td>
+            <td class="py-3 px-3">
+              <div class="flex flex-col">
+                <span class="font-headline text-sm ${entry.isLatest ? 'text-primary font-bold flex items-center gap-2' : 'font-semibold text-on-surface'}">
+                  ${entry.name}
+                  ${entry.isLatest ? '<span class="px-1.5 py-0.5 rounded bg-primary-container/20 border border-primary-container/40 text-primary-container font-mono text-[10px] uppercase font-bold">Baru</span>' : ''}
+                </span>
+                <span class="text-on-surface-variant font-mono text-xs">${entry.date}</span>
+              </div>
+            </td>
+            <td class="py-3 px-3 text-center">
+              ${tileBadge}
+            </td>
+            <td class="py-3 px-3 text-right font-mono font-medium">${entry.moves}</td>
+            <td class="py-3 px-3 text-right text-on-surface-variant font-mono text-xs">${entry.time}</td>
+            <td class="py-3 px-3 text-right font-mono text-lg ${scoreColor}">${entry.score.toLocaleString('id-ID')}</td>
+          `;
+          tbody.appendChild(tr);
+        });
+      }
+
+      // Action Handlers
+      const btnKeepGoing = document.getElementById('btn-keep-going');
+      if (btnKeepGoing) {
+        btnKeepGoing.addEventListener('click', () => {
+          const board = document.getElementById('underlying-board');
+          const victoryCard = document.getElementById('victory-card-container');
+          if (board && victoryCard) {
+            victoryCard.classList.add('opacity-0', 'scale-95');
+            setTimeout(() => {
+              victoryCard.remove();
+              board.classList.remove('opacity-25', 'blur-[3px]', 'pointer-events-none', 'scale-95');
+              board.classList.add('scale-100');
+            }, 300);
+          }
+        });
+      }
+
+      const btnNewGame = document.getElementById('btn-new-game');
+      if (btnNewGame) {
+        btnNewGame.addEventListener('click', () => {
+          if (confirm('Mulai game baru sekarang? Sesi saat ini telah tercatat di papan peringkat.')) {
+            window.location.reload();
+          }
+        });
+      }
+
+      const btnShare = document.getElementById('btn-share-score');
+      const shareToast = document.getElementById('share-toast');
+      if (btnShare && shareToast) {
+        btnShare.addEventListener('click', () => {
+          const shareText = '🏆 Saya berhasil mencapai ubin 2048 di QuadFuse dengan skor 20,480 dalam 742 langkah! Bisakah kamu mengalahkan rekor saya?';
+          if (navigator.clipboard) {
+            navigator.clipboard.writeText(shareText).then(() => {
+              shareToast.classList.remove('hidden');
+              shareToast.classList.add('flex');
+              setTimeout(() => {
+                shareToast.classList.add('hidden');
+                shareToast.classList.remove('flex');
+              }, 4000);
+            });
+          }
+        });
+      }
+
+      const resetBtn = document.getElementById('reset-leaderboard-btn');
+      if (resetBtn) {
+        resetBtn.addEventListener('click', () => {
+          if (confirm('Hapus seluruh riwayat skor lokal dari penyimpanan browser?')) {
+            localStorage.removeItem(STORAGE_KEY);
+            renderLeaderboard();
+          }
+        });
+      }
+
+      renderLeaderboard();
+    })();
+  </script>
+</div></main><footer class="w-full bg-surface-container-lowest/80 border-t border-outline-variant/30 py-4"><div class="max-w-7xl mx-auto px-4 md:px-8 flex flex-col sm:flex-row items-center justify-between gap-4"><div class="flex items-center gap-4 text-on-surface-variant font-mono text-xs"><div class="flex items-center gap-1.5"><span class="px-1.5 py-0.5 rounded bg-surface-container-high border border-outline-variant/40 text-primary font-bold">W A S D</span><span class="text-on-surface-variant">or</span><span class="px-1.5 py-0.5 rounded bg-surface-container-high border border-outline-variant/40 text-primary font-bold">↑ ← ↓ →</span><span class="ml-1 text-on-surface-variant">to slide blocks</span></div><span class="hidden md:inline text-outline-variant">•</span><span class="hidden md:inline">Press <strong class="text-primary-container">U</strong> to Undo</span></div><div class="flex items-center gap-2"><button class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-container border border-outline-variant/30 hover:border-primary-container/40 text-on-surface-variant hover:text-primary font-mono text-xs transition-all" type="button"><span class="material-symbols-outlined text-[16px]">volume_up</span><span>Audio</span></button><button class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-container border border-outline-variant/30 hover:border-primary-container/40 text-on-surface-variant hover:text-primary font-mono text-xs transition-all" type="button"><span class="material-symbols-outlined text-[16px]">undo</span><span>Undo</span></button><div class="text-on-surface-variant font-mono text-xs pl-2">© 2025 QuadFuse</div></div></div></footer></body></html>

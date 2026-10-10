@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&amp;family=Space+Grotesk:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+          "surface-container-low": "#171b26",
+          "inverse-on-surface": "#2c303b",
+          "secondary-fixed": "#e9ddff",
+          "on-tertiary-container": "#895600",
+          "surface-variant": "#313540",
+          "surface-container-lowest": "#0a0e18",
+          "on-primary-container": "#006c71",
+          "primary": "#e9feff",
+          "on-surface-variant": "#b9caca",
+          "surface-bright": "#353944",
+          "inverse-surface": "#dfe2f1",
+          "surface-tint": "#00dce5",
+          "on-surface": "#dfe2f1",
+          "error": "#ffb4ab",
+          "primary-container": "#00f5ff",
+          "on-primary-fixed-variant": "#004f53",
+          "on-tertiary-fixed-variant": "#653e00",
+          "surface": "#0f131d",
+          "tertiary": "#fff9f6",
+          "on-tertiary": "#472a00",
+          "primary-fixed": "#63f7ff",
+          "surface-container-highest": "#313540",
+          "on-tertiary-fixed": "#2a1700",
+          "on-error-container": "#ffdad6",
+          "tertiary-container": "#ffd7aa",
+          "inverse-primary": "#00696e",
+          "surface-dim": "#0f131d",
+          "secondary-fixed-dim": "#d0bcff",
+          "background": "#0f131d",
+          "surface-container-high": "#262a35",
+          "on-secondary-fixed": "#23005c",
+          "primary-fixed-dim": "#00dce5",
+          "outline": "#849495",
+          "on-secondary-fixed-variant": "#5516be",
+          "on-secondary-container": "#c4abff",
+          "on-primary": "#003739",
+          "tertiary-fixed-dim": "#ffb95f",
+          "error-container": "#93000a",
+          "secondary-container": "#571bc1",
+          "outline-variant": "#3a494a",
+          "secondary": "#d0bcff",
+          "on-secondary": "#3c0091",
+          "surface-container": "#1c1f2a",
+          "on-background": "#dfe2f1",
+          "tertiary-fixed": "#ffddb8",
+          "on-primary-fixed": "#002021",
+          "on-error": "#690005"
+        },
+        "borderRadius": {
+          "DEFAULT": "0.25rem",
+          "lg": "0.5rem",
+          "xl": "0.75rem",
+          "full": "9999px"
+        },
+        "spacing": {
+          "gutter": "1rem",
+          "gutter-board": "0.5rem",
+          "space-sm": "0.5rem",
+          "space-xl": "2rem",
+          "margin": "1.25rem",
+          "margin-desktop": "2.5rem",
+          "space-lg": "1.5rem",
+          "space-xs": "0.25rem",
+          "space-md": "1rem"
+        },
+        "fontFamily": {
+          "tile-num-3digit": ["Space Grotesk"],
+          "headline-lg-mobile": ["Space Grotesk"],
+          "body-lg": ["Space Grotesk"],
+          "tile-num-4digit": ["Space Grotesk"],
+          "display-hero-mobile": ["Space Grotesk"],
+          "display-hero": ["Space Grotesk"],
+          "headline-md": ["Space Grotesk"],
+          "body-md": ["Space Grotesk"],
+          "tile-num-2digit": ["Space Grotesk"],
+          "label-numeric": ["JetBrains Mono"],
+          "headline-sm": ["Space Grotesk"],
+          "label-caps": ["JetBrains Mono"],
+          "headline-lg": ["Space Grotesk"]
+        }
+      }
+    }
+  }
+</script></head><body class="bg-surface font-body-md text-on-surface antialiased min-h-screen flex flex-col justify-between selection:bg-primary-container selection:text-surface-container-lowest"><header class="fixed top-0 w-full z-40 bg-surface/85 backdrop-blur-xl border-b border-outline-variant/30 shadow-[0_4px_24px_rgba(0,0,0,0.5)]"><div class="h-20 max-w-7xl mx-auto px-space-md md:px-margin-desktop flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-md"><div class="flex flex-col"><div class="flex items-center gap-space-xs"><span class="w-3 h-3 rounded-full bg-primary-container shadow-[0_0_12px_#00f5ff] animate-pulse"></span><span class="font-headline-lg text-headline-lg tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-primary via-primary-fixed-dim to-secondary font-bold">QuadFuse</span></div><span class="font-body-md text-xs text-on-surface-variant/80 hidden sm:inline-block font-label-numeric tracking-wide">CYBER SYNTH 2048 PROTOCOL</span></div></div><div class="flex items-center gap-space-sm sm:gap-space-md"><nav class="flex items-center gap-space-xs"><a class="px-space-sm py-space-xs text-on-surface-variant hover:text-primary font-headline-sm text-sm transition-colors" data-path="game" href="#">Arena</a><a class="px-space-sm py-space-xs text-on-surface-variant hover:text-primary font-headline-sm text-sm transition-colors" data-path="leaderboard" href="#">High Scores</a><a aria-current="page" class="px-space-sm py-space-xs transition-all bg-gradient-to-r from-primary-container/20 to-secondary-container/40 border border-primary-container/50 text-primary-fixed font-bold rounded-lg shadow-[0_0_12px_rgba(0,245,255,0.2)]" data-path="tutorial" href="#">How to Play</a></nav><div class="w-9 h-9 rounded-lg bg-surface-container-high border border-outline-variant flex items-center justify-center shrink-0 shadow-inner group hover:border-primary-fixed transition-colors"><span class="material-symbols-outlined text-primary-fixed text-[20px]">person</span></div></div></div></header><main class="w-full pt-20 bg-surface flex-1 flex flex-col items-center justify-center relative overflow-hidden"><div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_40%,rgba(0,245,255,0.08),transparent_60%)] pointer-events-none"></div><div class="flex flex-col w-full items-center justify-center py-space-md sm:py-space-xl relative">
+<div class="w-full max-w-4xl px-space-md md:px-margin-desktop flex flex-col items-center select-none filter blur-[8px] opacity-30 pointer-events-none scale-[0.98] transition-all duration-300">
+<div class="w-full max-w-[500px] flex items-center justify-between mb-space-md">
+<div class="flex flex-col">
+<span class="font-label-caps text-label-caps uppercase tracking-wider text-on-surface-variant">TARGET PROTOCOL</span>
+<div class="flex items-center gap-space-xs">
+<span class="w-2.5 h-2.5 rounded-full bg-primary-container shadow-[0_0_8px_#00f5ff]"></span>
+<span class="font-headline-md text-headline-md text-primary font-bold">2048 Ubin</span>
+</div>
+</div>
+<div class="flex items-center gap-space-sm">
+<div class="bg-surface-container-high border border-outline-variant/40 px-space-md py-space-xs rounded-lg flex flex-col items-center min-w-[84px] shadow-sm">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Skor</span>
+<span class="font-headline-md text-headline-md text-primary-fixed font-bold font-label-numeric">1,824</span>
+</div>
+<div class="bg-surface-container-high border border-outline-variant/40 px-space-md py-space-xs rounded-lg flex flex-col items-center min-w-[84px] shadow-sm">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Terbaik</span>
+<span class="font-headline-md text-headline-md text-secondary font-bold font-label-numeric">14,360</span>
+</div>
+</div>
+</div>
+<div class="w-full max-w-[500px] aspect-square bg-surface-container-lowest border border-outline-variant/50 p-space-sm rounded-xl shadow-2xl flex flex-col justify-between">
+<div class="grid grid-cols-4 gap-2 h-full">
+<div class="bg-surface-container-high text-primary font-headline-md rounded-lg flex items-center justify-center font-bold border border-outline-variant/30">2</div>
+<div class="bg-surface-container-high text-primary-fixed font-headline-md rounded-lg flex items-center justify-center font-bold border border-outline-variant/40">4</div>
+<div class="bg-surface-container-highest text-secondary font-headline-md rounded-lg flex items-center justify-center font-bold border border-secondary/40">8</div>
+<div class="bg-surface-container-low/40 rounded-lg border border-outline-variant/20"></div>
+<div class="bg-secondary-container/60 text-secondary-fixed font-headline-md rounded-lg flex items-center justify-center font-bold border border-secondary/50">16</div>
+<div class="bg-secondary-container text-secondary font-headline-md rounded-lg flex items-center justify-center font-bold">64</div>
+<div class="bg-primary-container/20 text-primary-fixed font-headline-md rounded-lg flex items-center justify-center font-bold border border-primary-container">128</div>
+<div class="bg-surface-container-high text-primary font-headline-md rounded-lg flex items-center justify-center font-bold">2</div>
+<div class="bg-gradient-to-br from-primary-container/30 to-secondary-container text-primary-fixed font-headline-md rounded-lg flex items-center justify-center font-bold">256</div>
+<div class="bg-primary-container text-surface-container-lowest font-headline-md rounded-lg flex items-center justify-center font-bold shadow-[0_0_15px_#00f5ff]">512</div>
+<div class="bg-surface-container-low/40 rounded-lg border border-outline-variant/20"></div>
+<div class="bg-surface-container-high text-primary-fixed font-headline-md rounded-lg flex items-center justify-center font-bold">4</div>
+<div class="bg-surface-container-low/40 rounded-lg border border-outline-variant/20"></div>
+<div class="bg-surface-container-high text-primary font-headline-md rounded-lg flex items-center justify-center font-bold">2</div>
+<div class="bg-surface-container-low/40 rounded-lg border border-outline-variant/20"></div>
+<div class="bg-secondary-container text-secondary font-headline-md rounded-lg flex items-center justify-center font-bold">32</div>
+</div>
+</div>
+</div>
+<div class="fixed inset-0 z-50 flex items-center justify-center p-space-sm sm:p-margin bg-surface-container-lowest/70 backdrop-blur-xl transition-all duration-300" id="tutorial-overlay">
+<div class="relative w-full max-w-[560px] bg-surface-container-low/95 border border-primary-container/30 rounded-2xl shadow-[0_0_60px_rgba(0,245,255,0.18),0_25px_50px_-12px_rgba(0,0,0,0.85)] overflow-hidden flex flex-col max-h-[92vh] sm:max-h-[880px] animate-in fade-in zoom-in-95 duration-200 backdrop-blur-2xl">
+<div class="absolute -top-24 -left-24 w-52 h-52 bg-primary-container/20 rounded-full blur-3xl pointer-events-none"></div>
+<div class="absolute -bottom-24 -right-24 w-52 h-52 bg-secondary-container/30 rounded-full blur-3xl pointer-events-none"></div>
+<div class="relative flex items-center justify-between px-space-lg pt-space-lg pb-space-md border-b border-outline-variant/30 bg-surface-container-lowest/60">
+<div class="flex items-center gap-space-md">
+<div class="relative w-11 h-11 rounded-xl bg-gradient-to-br from-primary-container/30 via-surface-container-high to-secondary-container/40 p-[1px] shadow-[0_0_20px_rgba(0,245,255,0.35)]">
+<div class="w-full h-full bg-surface-container-lowest/90 rounded-[11px] flex items-center justify-center backdrop-blur-sm">
+<span class="material-symbols-outlined text-primary-fixed-dim text-[26px] drop-shadow-[0_0_8px_rgba(0,245,255,0.7)]">sports_esports</span>
+</div>
+</div>
+<div>
+<div class="flex items-center gap-2">
+<h2 class="font-headline-md text-headline-md text-primary font-bold tracking-tight">Cara Bermain QuadFuse</h2>
+<span class="px-2 py-0.5 rounded-full text-[10px] font-label-caps tracking-widest uppercase bg-primary-container/15 text-primary-fixed border border-primary-container/40">V2.4 Synth</span>
+</div>
+<p class="font-body-md text-xs sm:text-sm text-on-surface-variant font-label-numeric tracking-wide">Panduan taktik &amp; mekanisme ubin angka</p>
+</div>
+</div>
+<button aria-label="Tutup Panduan" class="w-9 h-9 rounded-xl bg-surface-container-high/80 hover:bg-surface-variant border border-outline-variant/40 hover:border-primary-container/60 text-on-surface-variant hover:text-primary flex items-center justify-center transition-all hover:scale-105 shadow-sm" id="close-modal-btn">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<div class="flex-1 overflow-y-auto px-space-md sm:px-space-lg py-space-md space-y-space-md scroll-smooth relative">
+<div class="group relative bg-surface-container/70 hover:bg-surface-container-high/60 border border-outline-variant/40 hover:border-primary-container/50 rounded-xl p-space-md transition-all duration-200 shadow-lg flex flex-col sm:flex-row items-center gap-space-md">
+<div class="flex-1 min-w-0">
+<div class="flex items-center gap-space-xs mb-1.5">
+<span class="w-5 h-5 rounded-md bg-primary-container/20 border border-primary-container/60 text-primary-fixed font-label-numeric text-xs font-bold flex items-center justify-center shadow-[0_0_8px_rgba(0,245,255,0.3)]">1</span>
+<h3 class="font-headline-sm text-sm sm:text-base text-primary font-bold tracking-wide">Geser Ubin (Swipe / Tombol Panah)</h3>
+</div>
+<p class="font-body-md text-xs sm:text-sm text-on-surface-variant leading-relaxed">
+              Gunakan tombol panah keyboard (<span class="font-label-numeric font-bold text-primary-fixed px-1 py-0.5 rounded bg-surface-container-lowest border border-outline-variant/40">↑ ↓ ← →</span>) atau usap layar sentuh ke arah manapun. Semua balok di papan akan bergeser serentak sejauh mungkin.
+            </p>
+</div>
+<div class="shrink-0 bg-surface-container-lowest/80 border border-outline-variant/40 p-2 sm:p-2.5 rounded-xl flex flex-col items-center gap-1 shadow-[inset_0_1px_4px_rgba(0,0,0,0.6)]">
+<div class="flex gap-1">
+<div class="w-7 h-7 bg-surface-container-high border border-outline-variant/50 hover:border-primary-container/60 rounded flex items-center justify-center text-primary-fixed font-label-numeric font-bold text-xs shadow-sm">↑</div>
+</div>
+<div class="flex gap-1">
+<div class="w-7 h-7 bg-surface-container-high border border-outline-variant/50 hover:border-primary-container/60 rounded flex items-center justify-center text-primary-fixed font-label-numeric font-bold text-xs shadow-sm">←</div>
+<div class="w-7 h-7 bg-surface-container-high border border-outline-variant/50 hover:border-primary-container/60 rounded flex items-center justify-center text-primary-fixed font-label-numeric font-bold text-xs shadow-sm">↓</div>
+<div class="w-7 h-7 bg-surface-container-high border border-outline-variant/50 hover:border-primary-container/60 rounded flex items-center justify-center text-primary-fixed font-label-numeric font-bold text-xs shadow-sm">→</div>
+</div>
+</div>
+</div>
+<div class="group relative bg-surface-container/70 hover:bg-surface-container-high/60 border border-outline-variant/40 hover:border-secondary/50 rounded-xl p-space-md transition-all duration-200 shadow-lg flex flex-col sm:flex-row items-center gap-space-md">
+<div class="flex-1 min-w-0">
+<div class="flex items-center gap-space-xs mb-1.5">
+<span class="w-5 h-5 rounded-md bg-secondary-container/40 border border-secondary/60 text-secondary-fixed font-label-numeric text-xs font-bold flex items-center justify-center shadow-[0_0_8px_rgba(208,188,255,0.3)]">2</span>
+<h3 class="font-headline-sm text-sm sm:text-base text-primary font-bold tracking-wide">Gabungkan Angka Sama</h3>
+</div>
+<p class="font-body-md text-xs sm:text-sm text-on-surface-variant leading-relaxed">
+              Saat dua ubin dengan nilai yang sama saling bertabrakan, keduanya akan menyatu menjadi satu ubin bernilai ganda (<span class="font-label-numeric text-primary-fixed">2+2=4</span>, <span class="font-label-numeric text-secondary-fixed">4+4=8</span>, dst).
+            </p>
+</div>
+<div class="shrink-0 bg-surface-container-lowest/80 border border-outline-variant/40 p-2 sm:p-2.5 rounded-xl flex items-center gap-1.5 shadow-[inset_0_1px_4px_rgba(0,0,0,0.6)]">
+<div class="w-9 h-9 rounded-lg bg-surface-container-high border border-outline-variant/60 text-primary-fixed font-label-numeric text-sm flex items-center justify-center font-bold shadow-sm">2</div>
+<span class="font-headline-md text-on-surface-variant font-bold text-sm">+</span>
+<div class="w-9 h-9 rounded-lg bg-surface-container-high border border-outline-variant/60 text-primary-fixed font-label-numeric text-sm flex items-center justify-center font-bold shadow-sm">2</div>
+<span class="material-symbols-outlined text-primary-container text-[18px] animate-pulse">arrow_forward</span>
+<div class="w-10 h-10 rounded-lg bg-gradient-to-br from-primary-container/20 to-secondary-container/40 border border-primary-container text-primary-fixed font-label-numeric text-base flex items-center justify-center font-bold shadow-[0_0_14px_rgba(0,245,255,0.4)] scale-105">4</div>
+</div>
+</div>
+<div class="group relative bg-surface-container/70 hover:bg-surface-container-high/60 border border-outline-variant/40 hover:border-primary-container/50 rounded-xl p-space-md transition-all duration-200 shadow-lg flex flex-col sm:flex-row items-center gap-space-md">
+<div class="flex-1 min-w-0">
+<div class="flex items-center gap-space-xs mb-1.5">
+<span class="w-5 h-5 rounded-md bg-primary-container/20 border border-primary-container/60 text-primary-fixed font-label-numeric text-xs font-bold flex items-center justify-center shadow-[0_0_8px_rgba(0,245,255,0.3)]">3</span>
+<h3 class="font-headline-sm text-sm sm:text-base text-primary font-bold tracking-wide">Muncul Ubin Baru</h3>
+</div>
+<p class="font-body-md text-xs sm:text-sm text-on-surface-variant leading-relaxed">
+              Setiap kali Anda membuat gerakan yang sah, sebuah ubin angka baru (biasanya <strong class="text-primary-fixed font-label-numeric">2</strong> atau kadang <strong class="text-secondary font-label-numeric">4</strong>) akan otomatis muncul di petak kosong secara acak.
+            </p>
+</div>
+<div class="shrink-0 bg-surface-container-lowest/80 border border-outline-variant/40 p-2 sm:p-2.5 rounded-xl flex items-center justify-center shadow-[inset_0_1px_4px_rgba(0,0,0,0.6)]">
+<div class="relative w-12 h-12 bg-surface-container-low/60 border border-dashed border-outline-variant/50 rounded-lg flex items-center justify-center">
+<span class="w-8 h-8 rounded-md bg-primary-container/20 border border-primary-container text-primary-fixed font-label-numeric text-sm flex items-center justify-center font-bold shadow-[0_0_10px_rgba(0,245,255,0.5)] animate-pulse">2</span>
+<span class="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-secondary-container border border-secondary text-secondary-fixed flex items-center justify-center text-[10px] font-bold shadow-[0_0_6px_rgba(208,188,255,0.6)]">+</span>
+</div>
+</div>
+</div>
+<div class="group relative bg-surface-container/70 hover:bg-surface-container-high/60 border border-outline-variant/40 hover:border-primary-container/50 rounded-xl p-space-md transition-all duration-200 shadow-lg flex flex-col sm:flex-row items-center gap-space-md">
+<div class="flex-1 min-w-0">
+<div class="flex items-center gap-space-xs mb-1.5">
+<span class="w-5 h-5 rounded-md bg-primary-container/20 border border-primary-container/60 text-primary-fixed font-label-numeric text-xs font-bold flex items-center justify-center shadow-[0_0_8px_rgba(0,245,255,0.3)]">4</span>
+<h3 class="font-headline-sm text-sm sm:text-base text-primary font-bold tracking-wide">Kondisi Menang &amp; Kalah</h3>
+</div>
+<p class="font-body-md text-xs sm:text-sm text-on-surface-variant leading-relaxed">
+              Raih ubin <strong class="text-primary-container font-label-numeric">2048</strong> untuk memenangkan tantangan! Namun berhati-hatilah, permainan berakhir kalah jika seluruh kisi 4x4 terisi penuh dan tidak ada gerakan yang tersisa.
+            </p>
+</div>
+<div class="shrink-0 flex items-center gap-space-xs bg-surface-container-lowest/80 border border-outline-variant/40 p-1.5 sm:p-2 rounded-xl shadow-[inset_0_1px_4px_rgba(0,0,0,0.6)]">
+<div class="w-12 h-12 rounded-lg bg-gradient-to-br from-primary-container via-surface-tint to-secondary-container border border-primary-fixed p-[1px] shadow-[0_0_18px_rgba(0,245,255,0.6)] flex flex-col items-center justify-center text-surface-container-lowest font-bold relative overflow-hidden">
+<span class="text-[12px] font-label-numeric tracking-tight font-extrabold text-slate-950">2048</span>
+<span class="text-[7px] font-label-caps uppercase tracking-wider bg-surface-container-lowest/90 text-primary-fixed-dim px-1 rounded-sm mt-0.5">VICTORY</span>
+</div>
+<div class="w-12 h-12 rounded-lg bg-surface-container border border-error/40 text-error font-label-numeric flex flex-col items-center justify-center font-bold shadow-sm">
+<span class="material-symbols-outlined text-[17px]">grid_off</span>
+<span class="text-[7px] font-label-caps uppercase tracking-wider text-on-surface-variant opacity-80 mt-0.5">Penuh</span>
+</div>
+</div>
+</div>
+</div>
+<div class="p-space-md sm:p-space-lg bg-surface-container-lowest/90 border-t border-outline-variant/30 flex flex-col sm:flex-row items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-xs text-on-surface-variant font-body-md text-xs sm:text-sm bg-surface-container/60 border border-outline-variant/30 px-3 py-2 rounded-lg w-full sm:w-auto">
+<span class="material-symbols-outlined text-primary-fixed-dim text-[18px] drop-shadow-[0_0_6px_rgba(0,245,255,0.5)]">lightbulb</span>
+<span class="text-xs font-label-numeric">Tips: Kumpulkan angka besar di salah satu sudut papan!</span>
+</div>
+<button class="w-full sm:w-auto px-space-lg py-2.5 rounded-xl bg-gradient-to-r from-primary-container via-primary-fixed-dim to-secondary-fixed-dim text-surface-container-lowest font-headline-sm text-sm font-bold shadow-[0_0_20px_rgba(0,245,255,0.45)] hover:shadow-[0_0_28px_rgba(0,245,255,0.7)] hover:brightness-110 active:scale-95 transition-all flex items-center justify-center gap-space-xs shrink-0 tracking-wide" id="start-game-btn" type="button">
+<span>Mengerti &amp; Mulai Main</span>
+<span class="material-symbols-outlined text-[18px]">play_arrow</span>
+</button>
+</div>
+</div>
+</div>
+<script>
+    (function() {
+      const overlay = document.getElementById('tutorial-overlay');
+      const closeBtn = document.getElementById('close-modal-btn');
+      const startBtn = document.getElementById('start-game-btn');
+
+      function hideTutorial() {
+        if (!overlay) return;
+        overlay.classList.add('opacity-0', 'pointer-events-none', 'transition-opacity', 'duration-200');
+        setTimeout(() => {
+          overlay.style.display = 'none';
+          const blurredArea = overlay.previousElementSibling;
+          if (blurredArea) {
+            blurredArea.classList.remove('filter', 'blur-[8px]', 'opacity-30', 'pointer-events-none', 'scale-[0.98]');
+          }
+        }, 200);
+      }
+
+      if (closeBtn) closeBtn.addEventListener('click', hideTutorial);
+      if (startBtn) startBtn.addEventListener('click', hideTutorial);
+    })();
+  </script>
+</div></main><footer class="w-full bg-surface-container-lowest border-t border-outline-variant/30 py-space-md"><div class="max-w-7xl mx-auto px-space-md md:px-margin-desktop flex flex-col sm:flex-row items-center justify-between gap-space-md"><div class="flex items-center gap-space-md text-on-surface-variant font-label-numeric text-xs"><div class="flex items-center gap-space-xs"><span class="px-space-xs py-0.5 rounded bg-surface-container-high border border-outline-variant/40 font-bold text-primary-fixed">W A S D</span><span class="text-on-surface-variant">or</span><span class="px-space-xs py-0.5 rounded bg-surface-container-high border border-outline-variant/40 font-bold text-primary-fixed">↑ ← ↓ →</span><span class="ml-1">to slide blocks</span></div><span class="hidden md:inline text-outline-variant">•</span><span class="hidden md:inline">Press <strong class="text-primary-fixed">U</strong> to Undo</span></div><div class="flex items-center gap-space-sm"><button class="flex items-center gap-space-xs px-space-sm py-space-xs rounded-lg bg-surface-container border border-outline-variant/40 hover:border-primary-container/50 text-on-surface-variant hover:text-primary font-label-numeric text-xs transition-all" type="button"><span class="material-symbols-outlined text-[16px]">volume_up</span><span>Audio</span></button><button class="flex items-center gap-space-xs px-space-sm py-space-xs rounded-lg bg-surface-container border border-outline-variant/40 hover:border-primary-container/50 text-on-surface-variant hover:text-primary font-label-numeric text-xs transition-all" type="button"><span class="material-symbols-outlined text-[16px]">undo</span><span>Undo</span></button><div class="text-on-surface-variant/70 font-label-numeric text-xs pl-space-xs">© 2025 QuadFuse</div></div></div></footer></body></html>

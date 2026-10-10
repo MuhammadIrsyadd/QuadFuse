@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html class="dark" lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0f131d" />
+  <title>QuadFuse — Cyber Synth Arcade 2048</title>
+
+  <!-- Google Fonts: Space Grotesk & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Space+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  
+  <!-- Material Symbols Outlined -->
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS via CDN with Cyber Synth Theme Configuration -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "surface-container-low": "#171b26",
+            "inverse-on-surface": "#2c303b",
+            "secondary-fixed": "#e9ddff",
+            "on-tertiary-container": "#895600",
+            "surface-variant": "#313540",
+            "surface-container-lowest": "#0a0e18",
+            "on-primary-container": "#006c71",
+            "primary": "#e9feff",
+            "on-surface-variant": "#b9caca",
+            "surface-bright": "#353944",
+            "inverse-surface": "#dfe2f1",
+            "surface-tint": "#00dce5",
+            "on-surface": "#dfe2f1",
+            "error": "#ffb4ab",
+            "primary-container": "#00f5ff",
+            "on-primary-fixed-variant": "#004f53",
+            "on-tertiary-fixed-variant": "#653e00",
+            "surface": "#0f131d",
+            "tertiary": "#fff9f6",
+            "on-tertiary": "#472a00",
+            "primary-fixed": "#63f7ff",
+            "surface-container-highest": "#313540",
+            "on-tertiary-fixed": "#2a1700",
+            "on-error-container": "#ffdad6",
+            "tertiary-container": "#ffd7aa",
+            "inverse-primary": "#00696e",
+            "surface-dim": "#0f131d",
+            "secondary-fixed-dim": "#d0bcff",
+            "background": "#0f131d",
+            "surface-container-high": "#262a35",
+            "on-secondary-fixed": "#23005c",
+            "primary-fixed-dim": "#00dce5",
+            "outline": "#849495",
+            "on-secondary-fixed-variant": "#5516be",
+            "on-secondary-container": "#c4abff",
+            "on-primary": "#003739",
+            "tertiary-fixed-dim": "#ffb95f",
+            "error-container": "#93000a",
+            "secondary-container": "#571bc1",
+            "outline-variant": "#3a494a",
+            "secondary": "#d0bcff",
+            "on-secondary": "#3c0091",
+            "surface-container": "#1c1f2a",
+            "on-background": "#dfe2f1",
+            "tertiary-fixed": "#ffddb8",
+            "on-primary-fixed": "#002021",
+            "on-error": "#690005"
+          },
+          borderRadius: {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "2xl": "1rem",
+            "full": "9999px"
+          },
+          fontFamily: {
+            "body-md": ["Space Grotesk", "sans-serif"],
+            "body-sm": ["Space Grotesk", "sans-serif"],
+            "headline-lg": ["Space Grotesk", "sans-serif"],
+            "headline-md": ["Space Grotesk", "sans-serif"],
+            "headline-xl": ["Space Grotesk", "sans-serif"],
+            "label-numeric": ["JetBrains Mono", "monospace"],
+            "label-caps": ["JetBrains Mono", "monospace"]
+          }
+        }
+      }
+    };
+  </script>
+
+  <!-- Custom Game & Animation Styles -->
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body class="bg-surface text-on-surface font-body-md antialiased min-h-screen flex flex-col justify-between selection:bg-primary-container selection:text-surface-container-lowest cyber-grid relative overflow-x-hidden">
+  
+  <!-- Ambient Neon Background Glows -->
+  <div class="fixed inset-0 pointer-events-none bg-[radial-gradient(ellipse_80%_50%_at_50%_-10%,rgba(0,245,255,0.14),rgba(15,19,29,0))] z-0"></div>
+  <div class="fixed top-20 left-1/4 w-[400px] h-[350px] bg-secondary-container/20 rounded-full blur-[120px] pointer-events-none -z-10"></div>
+  <div class="fixed top-40 right-1/4 w-[350px] h-[350px] bg-primary-container/10 rounded-full blur-[110px] pointer-events-none -z-10"></div>
+
+  <!-- Header Navigation Bar -->
+  <header class="fixed top-0 w-full z-40 bg-surface/80 backdrop-blur-xl border-b border-primary-container/20 shadow-[0_4px_30px_rgba(0,245,255,0.06)]">
+    <div class="h-16 sm:h-20 max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between gap-3">
+      <!-- Brand Logo -->
+      <div class="flex items-center gap-3">
+        <div class="relative flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-gradient-to-br from-primary-container to-secondary-container p-0.5 shadow-[0_0_15px_rgba(0,245,255,0.4)]">
+          <div class="w-full h-full bg-surface-container-lowest rounded-[10px] flex items-center justify-center">
+            <span class="font-label-numeric text-primary-container font-extrabold text-xs sm:text-sm tracking-tighter">2K</span>
+          </div>
+        </div>
+        <div class="flex flex-col">
+          <div class="flex items-center gap-1.5">
+            <span class="w-2.5 h-2.5 rounded-full bg-primary-container shadow-[0_0_12px_#00f5ff] animate-pulse"></span>
+            <span class="font-headline-lg text-xl sm:text-2xl tracking-tight text-white font-extrabold flex items-center">
+              Quad<span class="text-transparent bg-clip-text bg-gradient-to-r from-primary-container via-surface-tint to-secondary">Fuse</span>
+            </span>
+            <span class="hidden sm:inline-flex px-1.5 py-0.5 rounded text-[10px] font-label-caps font-bold tracking-wider bg-primary-container/10 border border-primary-container/30 text-primary-container uppercase">ARCADE</span>
+          </div>
+          <span class="font-label-numeric text-[11px] text-on-surface-variant hidden md:inline-block">Join the numbers &amp; reach 2048!</span>
+        </div>
+      </div>
+
+      <!-- Navigation & Action Buttons -->
+      <div class="flex items-center gap-2 sm:gap-4">
+        <nav class="flex items-center gap-1 sm:gap-1.5 p-1 rounded-xl bg-surface-container-lowest/80 border border-outline-variant/40 backdrop-blur-md">
+          <a id="nav-arena" href="#" aria-current="page" class="px-2.5 sm:px-3 py-1 sm:py-1.5 transition-all bg-primary-container/20 border border-primary-container/40 text-primary-container font-bold rounded-lg text-xs sm:text-sm shadow-[0_0_12px_rgba(0,245,255,0.25)] flex items-center gap-1">
+            <span class="material-symbols-outlined text-[16px]">sports_esports</span>
+            <span>Arena</span>
+          </a>
+          <a id="nav-leaderboard" href="#" class="px-2.5 sm:px-3 py-1 sm:py-1.5 text-on-surface-variant hover:text-white font-semibold text-xs sm:text-sm transition-all rounded-lg hover:bg-surface-container flex items-center gap-1">
+            <span class="material-symbols-outlined text-[16px]">leaderboard</span>
+            <span class="hidden xs:inline sm:inline">Skor</span>
+          </a>
+          <a id="nav-tutorial" href="#" class="px-2.5 sm:px-3 py-1 sm:py-1.5 text-on-surface-variant hover:text-white font-semibold text-xs sm:text-sm transition-all rounded-lg hover:bg-surface-container flex items-center gap-1">
+            <span class="material-symbols-outlined text-[16px]">help_outline</span>
+            <span class="hidden xs:inline sm:inline">Panduan</span>
+          </a>
+        </nav>
+
+        <!-- Quick Sound Toggle Button -->
+        <button id="btn-sound" type="button" aria-label="Toggle Sound" class="w-9 h-9 rounded-lg bg-surface-container-high border border-outline-variant/40 hover:border-primary-container text-on-surface-variant hover:text-primary-container flex items-center justify-center transition-all shadow-sm">
+          <span id="sound-icon" class="material-symbols-outlined text-[19px]">volume_up</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Game Cockpit (Arena 2048) -->
+  <main class="w-full flex-1 flex flex-col items-center justify-center pt-20 sm:pt-24 pb-8 px-3 sm:px-4 relative z-10">
+    <div class="w-full max-w-[500px] flex flex-col gap-3 sm:gap-4 relative">
+
+      <!-- Header Arena & Scores Row -->
+      <div class="flex items-end justify-between gap-2 w-full">
+        <div class="flex flex-col">
+          <div class="flex items-center gap-1.5">
+            <span class="inline-block w-3 h-3 rounded-full bg-primary-container shadow-[0_0_12px_rgba(0,245,255,1)] animate-ping"></span>
+            <h1 class="font-headline-lg text-2xl sm:text-3xl font-extrabold text-white tracking-tight">Arena 2048</h1>
+            <span class="px-2 py-0.5 rounded text-[10px] font-label-caps font-bold bg-secondary/15 text-secondary border border-secondary/30">CYBER</span>
+          </div>
+          <p class="font-body-sm text-xs sm:text-sm text-on-surface-variant leading-snug mt-0.5">
+            Gabungkan angka hingga mencapai ubin 2048!
+          </p>
+        </div>
+
+        <!-- Telemetry Score Pods -->
+        <div class="flex items-center gap-1.5 shrink-0">
+          <!-- Current Score Pod -->
+          <div class="relative bg-surface-container-lowest/90 border border-primary-container/30 rounded-xl px-3 sm:px-3.5 py-1.5 sm:py-2 min-w-[76px] sm:min-w-[90px] text-center shadow-[0_0_15px_rgba(0,245,255,0.12),inset_0_1px_1px_rgba(255,255,255,0.1)] flex flex-col justify-center backdrop-blur-sm">
+            <span class="font-label-caps text-[9px] sm:text-[10px] text-primary-container/80 tracking-widest uppercase font-bold">SKOR</span>
+            <span id="current-score" class="font-label-numeric text-base sm:text-xl text-white font-extrabold leading-tight mt-0.5 tracking-tight drop-shadow-[0_0_8px_rgba(255,255,255,0.5)] tabular-nums">0</span>
+            <div id="score-floater" class="absolute -top-3 right-1 text-primary-container font-label-caps text-xs font-black opacity-0 pointer-events-none drop-shadow-[0_0_6px_#00f5ff]">+16</div>
+          </div>
+
+          <!-- Best Score Pod -->
+          <div class="bg-surface-container-lowest/90 border border-secondary/30 rounded-xl px-3 sm:px-3.5 py-1.5 sm:py-2 min-w-[76px] sm:min-w-[90px] text-center shadow-[0_0_15px_rgba(208,188,255,0.1),inset_0_1px_1px_rgba(255,255,255,0.1)] flex flex-col justify-center backdrop-blur-sm">
+            <span class="font-label-caps text-[9px] sm:text-[10px] text-secondary tracking-widest uppercase font-bold">TERBAIK</span>
+            <span id="best-score" class="font-label-numeric text-base sm:text-xl text-secondary-fixed font-extrabold leading-tight mt-0.5 tracking-tight drop-shadow-[0_0_8px_rgba(208,188,255,0.4)] tabular-nums">0</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Live Match Telemetry Status (Moves & Time) -->
+      <div class="flex items-center justify-between px-3 py-1.5 bg-surface-container-lowest/60 border border-outline-variant/30 rounded-xl text-xs font-label-numeric text-on-surface-variant">
+        <div class="flex items-center gap-1.5">
+          <span class="material-symbols-outlined text-[15px] text-primary-container">swipe</span>
+          <span>Langkah:</span>
+          <span id="moves-count" class="text-white font-bold tabular-nums">0</span>
+        </div>
+        <div class="flex items-center gap-1.5">
+          <span class="material-symbols-outlined text-[15px] text-secondary">timer</span>
+          <span>Waktu:</span>
+          <span id="time-elapsed" class="text-white font-bold tabular-nums">00m 00s</span>
+        </div>
+      </div>
+
+      <!-- Action Control Bar -->
+      <div class="flex items-center justify-between gap-1.5 bg-surface-container-low/90 border border-outline-variant/60 rounded-xl p-1.5 shadow-[inset_0_1px_0_rgba(255,255,255,0.05)] backdrop-blur-md">
+        <div class="flex items-center gap-1.5">
+          <!-- New Game Button -->
+          <button id="btn-new-game" type="button" class="group flex items-center gap-1 px-3 sm:px-3.5 py-2 rounded-lg bg-gradient-to-r from-primary-container to-surface-tint text-surface-container-lowest font-label-caps text-xs font-bold shadow-[0_0_16px_rgba(0,245,255,0.4)] hover:shadow-[0_0_24px_rgba(0,245,255,0.65)] hover:brightness-110 active:translate-y-0.5 transition-all">
+            <span class="material-symbols-outlined text-[17px] group-hover:rotate-180 transition-transform duration-300">refresh</span>
+            <span class="tracking-wider">Game Baru</span>
+          </button>
+
+          <!-- Undo Button -->
+          <button id="btn-undo" type="button" class="flex items-center gap-1 px-2.5 sm:px-3 py-2 rounded-lg bg-surface-container hover:bg-surface-container-high border border-outline-variant/40 hover:border-primary-container/40 text-on-surface-variant hover:text-white font-label-caps text-xs font-semibold transition-all active:scale-95 shadow-sm opacity-40 cursor-not-allowed">
+            <span class="material-symbols-outlined text-[16px] text-primary-container">undo</span>
+            <span class="tracking-wider">Undo</span>
+          </button>
+        </div>
+
+        <div class="flex items-center gap-1">
+          <!-- Tutorial / How to Play Button -->
+          <button id="btn-tutorial" type="button" class="flex items-center gap-1 px-2.5 py-2 rounded-lg bg-surface-container hover:bg-surface-container-high border border-outline-variant/40 hover:border-secondary/50 text-on-surface-variant hover:text-secondary-fixed font-label-caps text-xs font-semibold transition-all shadow-sm">
+            <span class="material-symbols-outlined text-[17px] text-secondary">help_outline</span>
+            <span class="hidden sm:inline tracking-wider">Panduan</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- 4x4 Puzzle Arena Matrix Container -->
+      <div id="board-container" class="relative w-full aspect-square max-w-[500px] max-h-[500px] bg-gradient-to-b from-[#131826] to-[#0a0d16] border-2 border-primary-container/30 rounded-2xl p-2.5 sm:p-3.5 shadow-[0_0_40px_rgba(0,245,255,0.15),inset_0_2px_8px_rgba(0,0,0,0.8)] flex flex-col justify-between overflow-hidden">
+        
+        <!-- Recessed 16-Cell Grid Well -->
+        <div id="board-slots" class="grid grid-cols-4 grid-rows-4 gap-2 sm:gap-3 w-full h-full relative">
+          <div class="bg-[#0b0e17]/90 rounded-xl border border-white/5 shadow-[inset_0_3px_6px_rgba(0,0,0,0.6)]"></div>
+          <div class="bg-[#0b0e17]/90 rounded-xl border border-white/5 shadow-[inset_0_3px_6px_rgba(0,0,0,0.6)]"></div>
+          <div class="bg-[#0b0e17]/90 rounded-xl border border-white/5 shadow-[inset_0_3px_6px_rgba(0,0,0,0.6)]"></div>
+          <div class="bg-[#0b0e17]/90 rounded-xl border border-white/5 shadow-[inset_0_3px_6px_rgba(0,0,0,0.6)]"></div>
+          <div class="bg-[#0b0e17]/90 rounded-xl border border-white/5 shadow-[inset_0_3px_6px_rgba(0,0,0,0.6)]"></div>
+          <div class="bg-[#0b0e17]/90 rounded-xl border border-white/5 shadow-[inset_0_3px_6px_rgba(0,0,0,0.6)]"></div>
+          <div class="bg-[#0b0e17]/90 rounded-xl border border-white/5 shadow-[inset_0_3px_6px_rgba(0,0,0,0.6)]"></div>
+          <div class="bg-[#0b0e17]/90 rounded-xl border border-white/5 shadow-[inset_0_3px_6px_rgba(0,0,0,0.6)]"></div>
+          <div class="bg-[#0b0e17]/90 rounded-xl border border-white/5 shadow-[inset_0_3px_6px_rgba(0,0,0,0.6)]"></div>
+          <div class="bg-[#0b0e17]/90 rounded-xl border border-white/5 shadow-[inset_0_3px_6px_rgba(0,0,0,0.6)]"></div>
+          <div class="bg-[#0b0e17]/90 rounded-xl border border-white/5 shadow-[inset_0_3px_6px_rgba(0,0,0,0.6)]"></div>
+          <div class="bg-[#0b0e17]/90 rounded-xl border border-white/5 shadow-[inset_0_3px_6px_rgba(0,0,0,0.6)]"></div>
+          <div class="bg-[#0b0e17]/90 rounded-xl border border-white/5 shadow-[inset_0_3px_6px_rgba(0,0,0,0.6)]"></div>
+          <div class="bg-[#0b0e17]/90 rounded-xl border border-white/5 shadow-[inset_0_3px_6px_rgba(0,0,0,0.6)]"></div>
+          <div class="bg-[#0b0e17]/90 rounded-xl border border-white/5 shadow-[inset_0_3px_6px_rgba(0,0,0,0.6)]"></div>
+          <div class="bg-[#0b0e17]/90 rounded-xl border border-white/5 shadow-[inset_0_3px_6px_rgba(0,0,0,0.6)]"></div>
+        </div>
+
+        <!-- Dynamic Animated Tile Layer -->
+        <div id="tile-layer">
+          <!-- Rendered dynamically by game.js -->
+        </div>
+
+        <!-- In-Board Game Over Overlay -->
+        <div id="game-over-overlay" class="modal-backdrop hidden-modal absolute inset-0 bg-surface-container-lowest/90 backdrop-blur-xl rounded-2xl flex flex-col items-center justify-center gap-3 sm:gap-4 z-30 border border-error/40 p-4">
+          <div class="flex flex-col items-center text-center">
+            <span class="w-10 h-10 rounded-full bg-error/15 border border-error/40 flex items-center justify-center text-error mb-2 shadow-[0_0_15px_rgba(255,180,171,0.4)]">
+              <span class="material-symbols-outlined text-[24px]">grid_off</span>
+            </span>
+            <span class="font-headline-xl text-2xl sm:text-3xl text-white font-extrabold tracking-tight drop-shadow-[0_0_15px_rgba(255,100,100,0.7)]">Permainan Selesai!</span>
+            <p class="font-body-md text-xs sm:text-sm text-on-surface-variant mt-1">Tidak ada langkah valid tersisa pada papan.</p>
+          </div>
+
+          <!-- Final Score Pill -->
+          <div class="flex items-center gap-3 bg-surface-container-high/80 border border-outline-variant/40 px-4 py-2 rounded-xl text-center">
+            <div>
+              <span class="block text-[10px] font-label-caps text-on-surface-variant uppercase font-bold">Skor Akhir</span>
+              <span id="overlay-final-score" class="font-label-numeric text-lg text-primary-container font-extrabold">0</span>
+            </div>
+            <div class="h-6 w-[1px] bg-outline-variant/40"></div>
+            <div>
+              <span class="block text-[10px] font-label-caps text-on-surface-variant uppercase font-bold">Ubin Tertinggi</span>
+              <span id="overlay-best-tile" class="font-label-numeric text-lg text-secondary-fixed font-extrabold">2</span>
+            </div>
+          </div>
+
+          <div class="flex flex-wrap items-center justify-center gap-2 mt-1">
+            <button id="overlay-restart-btn" type="button" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-primary-container to-surface-tint text-surface-container-lowest font-label-caps text-xs font-bold tracking-wider shadow-[0_0_20px_rgba(0,245,255,0.5)] active:scale-95 transition-all">
+              Coba Lagi
+            </button>
+            <button id="overlay-leaderboard-btn" type="button" class="px-4 py-2.5 rounded-xl bg-surface-container-high border border-outline-variant/50 text-white font-label-caps text-xs font-bold tracking-wider hover:border-primary-container/40 active:scale-95 transition-all">
+              Lihat Riwayat
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- On-Screen Direction Touch Buttons (Mobile / Hybrid) -->
+      <div class="w-full flex flex-col items-center gap-1.5 pt-1">
+        <div class="flex items-center justify-center">
+          <button data-dir="up" aria-label="Geser ke Atas" class="dir-btn w-12 h-11 rounded-xl bg-surface-container-low border border-primary-container/30 hover:border-primary-container hover:bg-primary-container/20 text-on-surface hover:text-primary-container flex items-center justify-center shadow-[0_0_12px_rgba(0,0,0,0.5),inset_0_1px_1px_rgba(255,255,255,0.08)] active:translate-y-0.5 active:shadow-[0_0_18px_rgba(0,245,255,0.6)] transition-all group">
+            <span class="material-symbols-outlined text-[24px] group-hover:drop-shadow-[0_0_8px_#00f5ff]">keyboard_arrow_up</span>
+          </button>
+        </div>
+        <div class="flex items-center justify-center gap-3">
+          <button data-dir="left" aria-label="Geser ke Kiri" class="dir-btn w-12 h-11 rounded-xl bg-surface-container-low border border-primary-container/30 hover:border-primary-container hover:bg-primary-container/20 text-on-surface hover:text-primary-container flex items-center justify-center shadow-[0_0_12px_rgba(0,0,0,0.5),inset_0_1px_1px_rgba(255,255,255,0.08)] active:translate-y-0.5 active:shadow-[0_0_18px_rgba(0,245,255,0.6)] transition-all group">
+            <span class="material-symbols-outlined text-[24px] group-hover:drop-shadow-[0_0_8px_#00f5ff]">keyboard_arrow_left</span>
+          </button>
+          <button data-dir="down" aria-label="Geser ke Bawah" class="dir-btn w-12 h-11 rounded-xl bg-surface-container-low border border-primary-container/30 hover:border-primary-container hover:bg-primary-container/20 text-on-surface hover:text-primary-container flex items-center justify-center shadow-[0_0_12px_rgba(0,0,0,0.5),inset_0_1px_1px_rgba(255,255,255,0.08)] active:translate-y-0.5 active:shadow-[0_0_18px_rgba(0,245,255,0.6)] transition-all group">
+            <span class="material-symbols-outlined text-[24px] group-hover:drop-shadow-[0_0_8px_#00f5ff]">keyboard_arrow_down</span>
+          </button>
+          <button data-dir="right" aria-label="Geser ke Kanan" class="dir-btn w-12 h-11 rounded-xl bg-surface-container-low border border-primary-container/30 hover:border-primary-container hover:bg-primary-container/20 text-on-surface hover:text-primary-container flex items-center justify-center shadow-[0_0_12px_rgba(0,0,0,0.5),inset_0_1px_1px_rgba(255,255,255,0.08)] active:translate-y-0.5 active:shadow-[0_0_18px_rgba(0,245,255,0.6)] transition-all group">
+            <span class="material-symbols-outlined text-[24px] group-hover:drop-shadow-[0_0_8px_#00f5ff]">keyboard_arrow_right</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Quick Rule Card & Keyboard Legend -->
+      <div class="w-full bg-surface-container-low/80 border border-outline-variant/40 rounded-xl p-2.5 sm:p-3 flex flex-col gap-1.5 text-center sm:text-left backdrop-blur-md">
+        <div class="flex items-center justify-center sm:justify-between flex-wrap gap-2 text-on-surface-variant font-body-sm text-xs">
+          <div class="flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-primary-container shadow-[0_0_8px_#00f5ff]"></span>
+            <span><strong class="text-white">Aturan Cepat:</strong> Blok bernilai sama akan berfusi menjadi satu saat bertabrakan.</span>
+          </div>
+          <div class="hidden sm:flex items-center gap-1.5 text-primary-fixed-dim font-label-caps text-[11px]">
+            <span class="material-symbols-outlined text-[15px]">sports_esports</span>
+            <span>Gunakan Tombol Panah atau Geser Layar</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ==========================================================================
+       Tutorial Modal (Cara Bermain) — Cyber Synth Edition
+       ========================================================================== -->
+  <div id="tutorial-modal" class="modal-backdrop hidden-modal fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-surface-container-lowest/80 backdrop-blur-xl">
+    <div class="modal-card relative w-full max-w-[540px] bg-surface-container-low/95 border border-primary-container/30 rounded-2xl shadow-[0_0_60px_rgba(0,245,255,0.18),0_25px_50px_-12px_rgba(0,0,0,0.85)] overflow-hidden flex flex-col max-h-[92vh] backdrop-blur-2xl">
+      <!-- Glow Pods -->
+      <div class="absolute -top-24 -left-24 w-52 h-52 bg-primary-container/20 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="absolute -bottom-24 -right-24 w-52 h-52 bg-secondary-container/30 rounded-full blur-3xl pointer-events-none"></div>
+
+      <!-- Modal Header -->
+      <div class="relative flex items-center justify-between px-5 pt-5 pb-4 border-b border-outline-variant/30 bg-surface-container-lowest/60">
+        <div class="flex items-center gap-3">
+          <div class="relative w-10 h-10 rounded-xl bg-gradient-to-br from-primary-container/30 via-surface-container-high to-secondary-container/40 p-[1px] shadow-[0_0_20px_rgba(0,245,255,0.35)]">
+            <div class="w-full h-full bg-surface-container-lowest/90 rounded-[11px] flex items-center justify-center">
+              <span class="material-symbols-outlined text-primary-fixed-dim text-[22px] drop-shadow-[0_0_8px_rgba(0,245,255,0.7)]">sports_esports</span>
+            </div>
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <h2 class="font-headline-md text-lg sm:text-xl text-primary font-bold tracking-tight">Cara Bermain QuadFuse</h2>
+              <span class="px-2 py-0.5 rounded-full text-[10px] font-label-caps tracking-widest uppercase bg-primary-container/15 text-primary-fixed border border-primary-container/40">V2.4 Synth</span>
+            </div>
+            <p class="font-body-md text-xs text-on-surface-variant font-label-numeric tracking-wide">Panduan taktik &amp; mekanisme ubin angka</p>
+          </div>
+        </div>
+        <button id="btn-close-tutorial" aria-label="Tutup Panduan" class="w-8 h-8 rounded-xl bg-surface-container-high/80 hover:bg-surface-variant border border-outline-variant/40 hover:border-primary-container/60 text-on-surface-variant hover:text-primary flex items-center justify-center transition-all shadow-sm">
+          <span class="material-symbols-outlined text-[18px]">close</span>
+        </button>
+      </div>
+
+      <!-- Tutorial Content Cards -->
+      <div class="flex-1 overflow-y-auto px-4 sm:px-5 py-4 space-y-3 scroll-smooth relative text-xs sm:text-sm">
+        
+        <!-- Step 1 -->
+        <div class="group bg-surface-container/70 hover:bg-surface-container-high/60 border border-outline-variant/40 hover:border-primary-container/50 rounded-xl p-3.5 transition-all flex flex-col sm:flex-row items-center gap-3">
+          <div class="flex-1 min-w-0">
+            <div class="flex items-center gap-1.5 mb-1">
+              <span class="w-5 h-5 rounded-md bg-primary-container/20 border border-primary-container/60 text-primary-fixed font-label-numeric text-xs font-bold flex items-center justify-center shadow-[0_0_8px_rgba(0,245,255,0.3)]">1</span>
+              <h3 class="font-headline-sm text-sm text-primary font-bold tracking-wide">Geser Ubin (Swipe / Tombol Panah)</h3>
+            </div>
+            <p class="font-body-md text-on-surface-variant leading-relaxed">
+              Gunakan tombol panah keyboard (<span class="font-label-numeric font-bold text-primary-fixed px-1 py-0.5 rounded bg-surface-container-lowest border border-outline-variant/40">↑ ↓ ← →</span>), tombol <span class="font-label-numeric font-bold text-primary-fixed">WASD</span>, atau usap layar sentuh. Semua balok bergeser serentak hingga tepi.
+            </p>
+          </div>
+          <div class="shrink-0 bg-surface-container-lowest/80 border border-outline-variant/40 p-2 rounded-xl flex flex-col items-center gap-1 shadow-[inset_0_1px_4px_rgba(0,0,0,0.6)]">
+            <div class="w-6 h-6 bg-surface-container-high border border-outline-variant/50 rounded flex items-center justify-center text-primary-fixed font-label-numeric font-bold text-xs">↑</div>
+            <div class="flex gap-1">
+              <div class="w-6 h-6 bg-surface-container-high border border-outline-variant/50 rounded flex items-center justify-center text-primary-fixed font-label-numeric font-bold text-xs">←</div>
+              <div class="w-6 h-6 bg-surface-container-high border border-outline-variant/50 rounded flex items-center justify-center text-primary-fixed font-label-numeric font-bold text-xs">↓</div>
+              <div class="w-6 h-6 bg-surface-container-high border border-outline-variant/50 rounded flex items-center justify-center text-primary-fixed font-label-numeric font-bold text-xs">→</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="group bg-surface-container/70 hover:bg-surface-container-high/60 border border-outline-variant/40 hover:border-secondary/50 rounded-xl p-3.5 transition-all flex flex-col sm:flex-row items-center gap-3">
+          <div class="flex-1 min-w-0">
+            <div class="flex items-center gap-1.5 mb-1">
+              <span class="w-5 h-5 rounded-md bg-secondary-container/40 border border-secondary/60 text-secondary-fixed font-label-numeric text-xs font-bold flex items-center justify-center shadow-[0_0_8px_rgba(208,188,255,0.3)]">2</span>
+              <h3 class="font-headline-sm text-sm text-primary font-bold tracking-wide">Gabungkan Angka Sama</h3>
+            </div>
+            <p class="font-body-md text-on-surface-variant leading-relaxed">
+              Saat dua ubin dengan nilai yang sama saling bertabrakan, keduanya akan menyatu menjadi satu ubin bernilai ganda (<span class="font-label-numeric text-primary-fixed">2+2=4</span>, <span class="font-label-numeric text-secondary-fixed">4+4=8</span>, dst).
+            </p>
+          </div>
+          <div class="shrink-0 bg-surface-container-lowest/80 border border-outline-variant/40 p-2 rounded-xl flex items-center gap-1.5 shadow-[inset_0_1px_4px_rgba(0,0,0,0.6)]">
+            <div class="w-8 h-8 rounded-lg bg-surface-container-high border border-outline-variant/60 text-primary-fixed font-label-numeric text-xs flex items-center justify-center font-bold">2</div>
+            <span class="font-headline-md text-on-surface-variant font-bold text-xs">+</span>
+            <div class="w-8 h-8 rounded-lg bg-surface-container-high border border-outline-variant/60 text-primary-fixed font-label-numeric text-xs flex items-center justify-center font-bold">2</div>
+            <span class="material-symbols-outlined text-primary-container text-[16px] animate-pulse">arrow_forward</span>
+            <div class="w-9 h-9 rounded-lg bg-gradient-to-br from-primary-container/20 to-secondary-container/40 border border-primary-container text-primary-fixed font-label-numeric text-sm flex items-center justify-center font-bold shadow-[0_0_12px_rgba(0,245,255,0.4)]">4</div>
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="group bg-surface-container/70 hover:bg-surface-container-high/60 border border-outline-variant/40 hover:border-primary-container/50 rounded-xl p-3.5 transition-all flex flex-col sm:flex-row items-center gap-3">
+          <div class="flex-1 min-w-0">
+            <div class="flex items-center gap-1.5 mb-1">
+              <span class="w-5 h-5 rounded-md bg-primary-container/20 border border-primary-container/60 text-primary-fixed font-label-numeric text-xs font-bold flex items-center justify-center shadow-[0_0_8px_rgba(0,245,255,0.3)]">3</span>
+              <h3 class="font-headline-sm text-sm text-primary font-bold tracking-wide">Muncul Ubin Baru</h3>
+            </div>
+            <p class="font-body-md text-on-surface-variant leading-relaxed">
+              Setiap kali Anda membuat gerakan yang valid, ubin baru bernilai <strong class="text-primary-fixed font-label-numeric">2</strong> (90%) atau <strong class="text-secondary font-label-numeric">4</strong> (10%) akan muncul di petak kosong secara acak.
+            </p>
+          </div>
+          <div class="shrink-0 bg-surface-container-lowest/80 border border-outline-variant/40 p-2 rounded-xl flex items-center justify-center shadow-[inset_0_1px_4px_rgba(0,0,0,0.6)]">
+            <div class="relative w-10 h-10 bg-surface-container-low/60 border border-dashed border-outline-variant/50 rounded-lg flex items-center justify-center">
+              <span class="w-7 h-7 rounded-md bg-primary-container/20 border border-primary-container text-primary-fixed font-label-numeric text-xs flex items-center justify-center font-bold shadow-[0_0_10px_rgba(0,245,255,0.5)] animate-pulse">2</span>
+              <span class="absolute -top-1 -right-1 w-3.5 h-3.5 rounded-full bg-secondary-container border border-secondary text-secondary-fixed flex items-center justify-center text-[9px] font-bold">+</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="group bg-surface-container/70 hover:bg-surface-container-high/60 border border-outline-variant/40 hover:border-primary-container/50 rounded-xl p-3.5 transition-all flex flex-col sm:flex-row items-center gap-3">
+          <div class="flex-1 min-w-0">
+            <div class="flex items-center gap-1.5 mb-1">
+              <span class="w-5 h-5 rounded-md bg-primary-container/20 border border-primary-container/60 text-primary-fixed font-label-numeric text-xs font-bold flex items-center justify-center shadow-[0_0_8px_rgba(0,245,255,0.3)]">4</span>
+              <h3 class="font-headline-sm text-sm text-primary font-bold tracking-wide">Kondisi Menang &amp; Kalah</h3>
+            </div>
+            <p class="font-body-md text-on-surface-variant leading-relaxed">
+              Raih ubin <strong class="text-primary-container font-label-numeric">2048</strong> untuk memenangkan tantangan (bisa lanjut ke 4096+!). Permainan selesai jika seluruh 16 petak terisi dan tidak ada lagi langkah yang bisa digabung.
+            </p>
+          </div>
+          <div class="shrink-0 flex items-center gap-1 bg-surface-container-lowest/80 border border-outline-variant/40 p-1.5 rounded-xl shadow-[inset_0_1px_4px_rgba(0,0,0,0.6)]">
+            <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-primary-container via-surface-tint to-secondary-container border border-primary-fixed flex flex-col items-center justify-center text-surface-container-lowest font-bold shadow-[0_0_12px_rgba(0,245,255,0.5)]">
+              <span class="text-[11px] font-label-numeric tracking-tight font-extrabold text-slate-950">2048</span>
+              <span class="text-[6px] font-label-caps uppercase bg-surface-container-lowest/90 text-primary-fixed-dim px-0.5 rounded-sm">MENANG</span>
+            </div>
+            <div class="w-10 h-10 rounded-lg bg-surface-container border border-error/40 text-error font-label-numeric flex flex-col items-center justify-center font-bold">
+              <span class="material-symbols-outlined text-[15px]">grid_off</span>
+              <span class="text-[6px] font-label-caps uppercase text-on-surface-variant opacity-80">PENUH</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Footer & Action Button -->
+      <div class="p-4 bg-surface-container-lowest/90 border-t border-outline-variant/30 flex flex-col sm:flex-row items-center justify-between gap-3">
+        <div class="flex items-center gap-1.5 text-on-surface-variant font-body-md text-xs bg-surface-container/60 border border-outline-variant/30 px-3 py-1.5 rounded-lg w-full sm:w-auto">
+          <span class="material-symbols-outlined text-primary-fixed-dim text-[16px]">lightbulb</span>
+          <span class="font-label-numeric">Tips: Kumpulkan angka besar di salah satu sudut papan!</span>
+        </div>
+        <button id="btn-got-it" type="button" class="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-gradient-to-r from-primary-container via-primary-fixed-dim to-secondary-fixed-dim text-surface-container-lowest font-headline-sm text-xs sm:text-sm font-bold shadow-[0_0_20px_rgba(0,245,255,0.45)] hover:shadow-[0_0_28px_rgba(0,245,255,0.7)] hover:brightness-110 active:scale-95 transition-all flex items-center justify-center gap-1.5 shrink-0 tracking-wide">
+          <span>Mengerti &amp; Mulai Main</span>
+          <span class="material-symbols-outlined text-[17px]">play_arrow</span>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       Victory Celebration Modal (Mencapai 2048!) — Cyber Edition
+       ========================================================================== -->
+  <div id="victory-modal" class="modal-backdrop hidden-modal fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-surface-container-lowest/85 backdrop-blur-2xl overflow-y-auto">
+    <div class="modal-card relative w-full max-w-4xl bg-surface-container-lowest/95 border border-primary-container/30 rounded-2xl shadow-[0_0_60px_rgba(0,245,255,0.22),0_25px_60px_-15px_rgba(0,0,0,0.85)] p-4 sm:p-7 flex flex-col gap-5 overflow-hidden my-auto backdrop-blur-2xl">
+      
+      <!-- Top Hologram Horizon Line -->
+      <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-primary-container to-secondary"></div>
+
+      <!-- Cyber Particles / Spark Stream Canvas Background -->
+      <div class="absolute inset-0 pointer-events-none overflow-hidden -z-10 rounded-2xl opacity-60">
+        <svg class="w-full h-full" fill="none" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="130" cy="90" fill="#00f5ff" r="4" class="animate-ping"></circle>
+          <circle cx="710" cy="80" fill="#ffd7aa" r="5" class="animate-pulse"></circle>
+          <polygon fill="#d0bcff" points="190,45 198,62 182,62"></polygon>
+          <rect fill="#00dce5" height="8" transform="rotate(45 640 120)" width="8" x="640" y="120"></rect>
+          <rect fill="#d0bcff" height="6" transform="rotate(25 90 220)" width="6" x="90" y="220"></rect>
+          <circle cx="730" cy="280" fill="#63f7ff" r="4"></circle>
+          <polygon fill="#ffb95f" points="390,20 398,34 382,34"></polygon>
+        </svg>
+      </div>
+
+      <!-- Victory Header Ribbon -->
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left pb-2 border-b border-outline-variant/30">
+        <div class="flex flex-col sm:flex-row items-center gap-4">
+          <div class="relative shrink-0">
+            <!-- Trophy Pod -->
+            <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-gradient-to-tr from-secondary-container via-surface-container-high to-primary-container p-[2px] shadow-[0_0_28px_rgba(0,245,255,0.45)] flex items-center justify-center">
+              <div class="w-full h-full bg-surface-container-lowest rounded-[14px] flex items-center justify-center relative overflow-hidden">
+                <div class="absolute inset-0 bg-gradient-to-b from-primary-container/20 to-transparent"></div>
+                <span class="material-symbols-outlined text-[38px] sm:text-[46px] text-tertiary-fixed-dim drop-shadow-[0_0_12px_rgba(255,185,95,0.7)]" style="font-variation-settings: 'FILL' 1;">emoji_events</span>
+              </div>
+            </div>
+            <span class="absolute -bottom-2 -right-2 px-2 py-0.5 rounded-full bg-primary-container text-on-primary-fixed font-label-numeric text-[10px] uppercase font-bold tracking-wider shadow-[0_0_12px_rgba(0,245,255,0.8)] border border-primary">2048!</span>
+          </div>
+
+          <div>
+            <div class="flex items-center justify-center sm:justify-start gap-1.5 mb-1">
+              <span class="w-2 h-2 rounded-full bg-primary-container animate-pulse shadow-[0_0_8px_#00f5ff]"></span>
+              <span class="font-label-numeric text-xs uppercase font-bold tracking-widest text-primary-fixed-dim">Prestasi Legendaris</span>
+            </div>
+            <h2 class="font-headline-lg text-2xl sm:text-3xl text-primary font-bold tracking-tight drop-shadow-[0_2px_10px_rgba(233,254,255,0.2)]">
+              Luar Biasa! Kamu Mencapai 2048! 🎉
+            </h2>
+            <p class="text-xs sm:text-sm font-sans text-on-surface-variant max-w-xl mt-1 leading-relaxed">
+              Strategi brilian. Balok keramik bernomor telah menyatu membentuk mahkota ubin cyan. Kamu dapat terus bermain untuk melipatgandakan rekor!
+            </p>
+          </div>
+        </div>
+
+        <!-- Quick High Tile Chip -->
+        <div class="flex flex-col items-center bg-surface-container-low/90 border border-primary-container/30 px-3.5 py-2.5 rounded-xl shrink-0 shadow-[0_0_16px_rgba(0,245,255,0.1)]">
+          <span class="font-label-caps text-[10px] text-on-surface-variant font-bold uppercase tracking-wider">Ubin Tertinggi</span>
+          <div id="vic-tile" class="mt-1 px-3.5 py-1 rounded-lg bg-gradient-to-r from-primary-container to-primary-fixed-dim text-surface-container-lowest font-label-numeric text-lg font-bold tracking-tight shadow-[0_0_16px_rgba(0,245,255,0.6)]">
+            2048
+          </div>
+        </div>
+      </div>
+
+      <!-- 4 Cyber Metric Cards -->
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-3">
+        <!-- Metric 1: Skor Akhir -->
+        <div class="bg-surface-container-low/80 border border-outline-variant/30 rounded-xl p-3 flex flex-col justify-between">
+          <div class="flex items-center justify-between text-on-surface-variant">
+            <span class="font-label-caps text-[10px] uppercase tracking-wider font-bold">Skor Akhir</span>
+            <span class="material-symbols-outlined text-[18px] text-tertiary-fixed-dim">military_tech</span>
+          </div>
+          <div id="vic-score" class="mt-1.5 font-label-numeric text-xl sm:text-2xl text-primary-container font-bold tracking-tight drop-shadow-[0_0_10px_rgba(0,245,255,0.4)]">
+            0
+          </div>
+          <span class="font-label-numeric text-[11px] text-primary-fixed-dim font-medium mt-1 flex items-center gap-1">
+            <span class="material-symbols-outlined text-[13px]">add_circle</span> +2,048 bonus gabungan
+          </span>
+        </div>
+
+        <!-- Metric 2: Langkah -->
+        <div class="bg-surface-container-low/80 border border-outline-variant/30 rounded-xl p-3 flex flex-col justify-between">
+          <div class="flex items-center justify-between text-on-surface-variant">
+            <span class="font-label-caps text-[10px] uppercase tracking-wider font-bold">Langkah</span>
+            <span class="material-symbols-outlined text-[18px] text-secondary">swipe</span>
+          </div>
+          <div id="vic-moves" class="mt-1.5 font-label-numeric text-xl sm:text-2xl text-primary font-bold tracking-tight">
+            0
+          </div>
+          <span id="vic-efficiency" class="font-label-numeric text-[11px] text-on-surface-variant mt-1">Efisiensi -- poin/geser</span>
+        </div>
+
+        <!-- Metric 3: Best Tile Status -->
+        <div class="bg-surface-container-low/80 border border-primary-container/40 rounded-xl p-3 flex flex-col justify-between shadow-[0_0_16px_rgba(0,245,255,0.12)]">
+          <div class="flex items-center justify-between text-on-surface-variant">
+            <span class="font-label-caps text-[10px] uppercase tracking-wider font-bold text-primary-container">Best Tile</span>
+            <span class="material-symbols-outlined text-[18px] text-primary-container">diamond</span>
+          </div>
+          <div class="mt-1.5 flex items-baseline gap-1.5">
+            <span class="font-label-numeric text-xl sm:text-2xl text-primary-container font-bold drop-shadow-[0_0_12px_rgba(0,245,255,0.5)]">2048</span>
+            <span class="font-label-numeric text-[10px] text-secondary-fixed bg-secondary-container/40 px-1 py-0.5 rounded border border-secondary/30">Level 11</span>
+          </div>
+          <span class="font-label-numeric text-[11px] text-primary-fixed-dim mt-1">Ubin Super Tercapai</span>
+        </div>
+
+        <!-- Metric 4: Waktu Tempuh -->
+        <div class="bg-surface-container-low/80 border border-outline-variant/30 rounded-xl p-3 flex flex-col justify-between">
+          <div class="flex items-center justify-between text-on-surface-variant">
+            <span class="font-label-caps text-[10px] uppercase tracking-wider font-bold">Waktu Tempuh</span>
+            <span class="material-symbols-outlined text-[18px] text-on-surface-variant">timer</span>
+          </div>
+          <div id="vic-time" class="mt-1.5 font-label-numeric text-xl sm:text-2xl text-primary font-bold tracking-tight">
+            00m 00s
+          </div>
+          <span id="vic-pace" class="font-label-numeric text-[11px] text-on-surface-variant mt-1">Rata-rata -- dtk/geser</span>
+        </div>
+      </div>
+
+      <!-- Local Leaderboard Preview in Victory Screen -->
+      <div class="bg-surface-container-low/90 border border-outline-variant/30 rounded-xl p-3 sm:p-4 flex flex-col gap-2.5">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-1.5">
+            <span class="material-symbols-outlined text-primary-container text-[18px]">leaderboard</span>
+            <h3 class="font-headline-md text-sm sm:text-base text-primary font-bold tracking-wide">Papan Skor Tertinggi Lokal</h3>
+          </div>
+          <span class="font-label-numeric text-[11px] text-on-surface-variant">Tersimpan di browser</span>
+        </div>
+
+        <!-- Score Table -->
+        <div class="overflow-x-auto max-h-48 overflow-y-auto">
+          <table class="w-full text-left border-collapse">
+            <thead>
+              <tr class="text-on-surface-variant font-label-numeric text-[10px] uppercase tracking-wider border-b border-outline-variant/30">
+                <th class="py-1.5 px-2 font-bold w-12">Rank</th>
+                <th class="py-1.5 px-2 font-bold">Pemain / Catatan</th>
+                <th class="py-1.5 px-2 font-bold text-center">Ubin</th>
+                <th class="py-1.5 px-2 font-bold text-right">Langkah</th>
+                <th class="py-1.5 px-2 font-bold text-right">Waktu</th>
+                <th class="py-1.5 px-2 font-bold text-right">Skor Total</th>
+              </tr>
+            </thead>
+            <tbody id="vic-leaderboard-body" class="text-on-surface font-sans text-xs divide-y divide-outline-variant/20">
+              <!-- Dynamically populated -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Victory Action Command Buttons -->
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-2.5 pt-1">
+        <div class="flex flex-wrap items-center gap-2 w-full sm:w-auto">
+          <!-- Keep Going Button -->
+          <button id="btn-keep-going" type="button" class="flex-1 sm:flex-initial flex items-center justify-center gap-1.5 px-5 py-2.5 rounded-xl bg-gradient-to-r from-primary-container to-primary-fixed text-surface-container-lowest font-headline-md font-bold text-xs sm:text-sm tracking-wide shadow-[0_0_20px_rgba(0,245,255,0.4)] hover:shadow-[0_0_28px_rgba(0,245,255,0.7)] hover:brightness-110 active:scale-[0.98] transition-all border border-primary">
+            <span class="material-symbols-outlined text-[18px]">fast_forward</span>
+            <span>Lanjut Main (Target 4096+)</span>
+          </button>
+          <!-- New Game Button -->
+          <button id="btn-victory-new-game" type="button" class="flex-1 sm:flex-initial flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl bg-surface-container-high hover:bg-surface-variant text-primary border border-outline-variant/50 hover:border-primary-container/40 font-headline-md font-bold text-xs sm:text-sm tracking-wide active:scale-[0.98] transition-all">
+            <span class="material-symbols-outlined text-[18px] text-primary-container">refresh</span>
+            <span>Main Game Baru</span>
+          </button>
+        </div>
+
+        <!-- Share Score Button -->
+        <button id="btn-share-score" type="button" class="w-full sm:w-auto flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl bg-secondary-container/40 hover:bg-secondary-container/70 border border-secondary/40 text-secondary-fixed font-headline-md font-semibold text-xs sm:text-sm tracking-wide shadow-[0_0_15px_rgba(208,188,255,0.15)] active:scale-[0.98] transition-all">
+          <span class="material-symbols-outlined text-[18px] text-secondary">share</span>
+          <span>Bagikan Skor</span>
+        </button>
+      </div>
+
+      <!-- Notification Toast -->
+      <div id="share-toast" class="hidden items-center justify-center gap-2 p-2.5 bg-surface-container-highest border border-primary-container/50 text-primary rounded-xl text-xs font-label-numeric shadow-[0_0_20px_rgba(0,245,255,0.3)] transition-all">
+        <span class="material-symbols-outlined text-primary-container text-[18px]">check_circle</span>
+        <span>Tautan skor dan ringkasan berhasil disalin ke papan klip!</span>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       Leaderboard Modal (High Scores Papan Skor Lokal)
+       ========================================================================== -->
+  <div id="leaderboard-modal" class="modal-backdrop hidden-modal fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-surface-container-lowest/80 backdrop-blur-xl">
+    <div class="modal-card relative w-full max-w-2xl bg-surface-container-low/95 border border-primary-container/30 rounded-2xl shadow-[0_0_50px_rgba(0,245,255,0.18)] p-4 sm:p-6 flex flex-col gap-4 max-h-[90vh] overflow-hidden backdrop-blur-2xl">
+      
+      <!-- Modal Header -->
+      <div class="flex items-center justify-between pb-3 border-b border-outline-variant/30">
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-primary-container text-[24px]">leaderboard</span>
+          <div>
+            <h2 class="font-headline-md text-lg sm:text-xl text-primary font-bold">Papan Skor Tertinggi Lokal</h2>
+            <p class="font-label-numeric text-[11px] text-on-surface-variant">Tersimpan di browser kamu (localStorage)</p>
+          </div>
+        </div>
+        <button id="btn-close-leaderboard" aria-label="Tutup Papan Skor" class="w-8 h-8 rounded-xl bg-surface-container-high/80 hover:bg-surface-variant border border-outline-variant/40 text-on-surface-variant hover:text-white flex items-center justify-center transition-all">
+          <span class="material-symbols-outlined text-[18px]">close</span>
+        </button>
+      </div>
+
+      <!-- Leaderboard Table Container -->
+      <div class="flex-1 overflow-x-auto overflow-y-auto">
+        <table class="w-full text-left border-collapse">
+          <thead>
+            <tr class="text-on-surface-variant font-label-numeric text-[11px] uppercase tracking-wider border-b border-outline-variant/30">
+              <th class="py-2 px-3 font-bold w-14">Rank</th>
+              <th class="py-2 px-3 font-bold">Sesi / Catatan</th>
+              <th class="py-2 px-3 font-bold text-center">Ubin</th>
+              <th class="py-2 px-3 font-bold text-right">Langkah</th>
+              <th class="py-2 px-3 font-bold text-right">Waktu</th>
+              <th class="py-2 px-3 font-bold text-right">Skor Total</th>
+            </tr>
+          </thead>
+          <tbody id="modal-leaderboard-body" class="text-on-surface font-sans text-xs sm:text-sm divide-y divide-outline-variant/20">
+            <!-- Dynamically populated -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="flex items-center justify-between pt-2 border-t border-outline-variant/30">
+        <button id="reset-leaderboard-btn" type="button" class="text-on-surface-variant hover:text-error text-xs font-label-numeric px-3 py-1.5 rounded-lg border border-outline-variant/30 hover:border-error/50 transition-colors flex items-center gap-1">
+          <span class="material-symbols-outlined text-[15px]">restart_alt</span>
+          <span>Reset Riwayat</span>
+        </button>
+        <span class="font-label-numeric text-[11px] text-on-surface-variant">QuadFuse Synth Arcade</span>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="w-full bg-surface-container-lowest/80 border-t border-outline-variant/30 py-3 backdrop-blur-md relative z-10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-on-surface-variant font-label-numeric">
+      
+      <!-- Key Legend -->
+      <div class="flex items-center gap-2">
+        <span class="px-1.5 py-0.5 rounded bg-surface-container border border-outline-variant/40 text-primary font-bold">W A S D</span>
+        <span>atau</span>
+        <span class="px-1.5 py-0.5 rounded bg-surface-container border border-outline-variant/40 text-primary font-bold">↑ ← ↓ →</span>
+        <span>untuk menggeser</span>
+        <span class="hidden md:inline">•</span>
+        <span class="hidden md:inline">Tekan <strong class="text-primary-container font-bold">U</strong> untuk Undo</span>
+      </div>
+
+      <!-- Footer Actions -->
+      <div class="flex items-center gap-2">
+        <button id="footer-btn-audio" type="button" class="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-surface-container hover:bg-surface-container-high border border-outline-variant/30 text-on-surface-variant hover:text-primary transition-all">
+          <span class="material-symbols-outlined text-[15px] footer-sound-icon">volume_up</span>
+          <span>Audio</span>
+        </button>
+        <button id="footer-btn-undo" type="button" class="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-surface-container hover:bg-surface-container-high border border-outline-variant/30 text-on-surface-variant hover:text-primary transition-all">
+          <span class="material-symbols-outlined text-[15px]">undo</span>
+          <span>Undo</span>
+        </button>
+        <span class="pl-2">© 2026 QuadFuse</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Core Game Script -->
+  <script src="game.js"></script>
+</body>
+</html>
